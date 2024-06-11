@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
     public int ammo;
     public float bulletSpeed;
     
-    protected bool isReadyToFire = false;
+    protected bool isReadyToFire = true;
     
     [SerializeField]
     protected Bullet bulletPrefab;
@@ -17,7 +17,7 @@ public class Weapon : MonoBehaviour
     
     protected void Start()
     {
-        InvokeRepeating(nameof(MakeReadyToFire), 0, rateOfFire);
+        
     }
 
     public virtual void Fire()
@@ -25,6 +25,7 @@ public class Weapon : MonoBehaviour
         if (isReadyToFire)
         {
             isReadyToFire = false;
+            Invoke(nameof(MakeReadyToFire), rateOfFire);
         }
     }
     
