@@ -61,5 +61,12 @@ public class RegularEnemy : LivingBeing
         gameObject.transform.eulerAngles = new Vector3(0, (float)roundedRotation, 0);
     }
     
-    
+    public override void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir)
+    {
+        base.TakeDamage(damage, knockbackPower, knockbackDir);
+        if (hp <= 0)
+        {
+            //TODO
+        }
+    }
 }

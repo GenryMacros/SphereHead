@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class LivingBeing : MonoBehaviour
@@ -15,7 +14,7 @@ public class LivingBeing : MonoBehaviour
     protected bool canMove = true;
     
     private float knockbackDistance;
-    private float knockbackSpeed = 20;
+    private float knockbackSpeed = 30;
     private Vector3 _knockbackDir;
 
     protected void Start()
@@ -24,7 +23,7 @@ public class LivingBeing : MonoBehaviour
         knockbackTimer.waitTime = knockbackRecoverTime;
         knockbackTimer.callback += this.KnockbackRecover;
     }
-
+    
     protected bool ProcessKnockback()
     {
         if (knockbackDistance <= 0)
@@ -56,12 +55,9 @@ public class LivingBeing : MonoBehaviour
     {
         hp -= damage;
         _knockbackDir = new Vector3(knockbackDir.x, 0, knockbackDir.y);
-        knockbackDistance = knockbackPower;
+        knockbackDistance += knockbackPower;
         canMove = false;
-        if (hp <= 0)
-        {
-            //TODO
-        }
+        knockbackTimer.Stop();
     }
 
     void KnockbackRecover()

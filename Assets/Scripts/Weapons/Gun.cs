@@ -1,8 +1,6 @@
-using UnityEngine;
 
 public class Gun : Weapon
 {
-    
     void Start()
     {
         base.Start();
@@ -14,7 +12,7 @@ public class Gun : Weapon
         {
             Bullet newBullet = Instantiate(bulletPrefab);
             newBullet.transform.position = spawnPoint.transform.position;
-            newBullet.Init(bulletSpeed, gameObject.transform.forward, damage, knockbackPower);
+            newBullet.Init(bulletSpeed, gameObject.transform.forward, damage, knockbackPower, maxBulletTravelDistance);
         }
         base.Fire();
     } 
