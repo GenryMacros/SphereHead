@@ -28,6 +28,7 @@ public class Bullet : MonoBehaviour
 
         if (_traveledDistance >= _maxBulletTravelDistance)
         {
+            gameObject.SetActive(false);
             SelfDestruct();
         }
     }

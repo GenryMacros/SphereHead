@@ -6,24 +6,40 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CapsuleCollider))]
 public class RegularEnemy : LivingBeing
 {
-    public enum EnemyState {Chase, Attack};
-    public PlayerController player;
+    public enum EnemyState {Chase, Attack, Die};
     public EnemyState currentState = EnemyState.Chase;
+    public float minDamage;
+    public float maxDamage;
+    public float maxHp;
     
     [SerializeField]
     protected NavMeshAgent _navigator;
+    protected float damage;
     
-    void Start()
+    [SerializeField]
+    protected float attackDistance;
+    
+    [SerializeField] 
+    protected Timer pathResetTimer;
+    
+    
+    protected override void Start()
     {
         base.Start();
+        float t = (float)GameController.instance.GetCurrentWave() / GameController.instance.GetMaxWaves();
+        damage = Mathf.Lerp(minDamage, maxDamage, t);
+        hp = Mathf.Lerp(hp, maxHp, t);
+
+        pathResetTimer.waitTime = 2;
+        pathResetTimer.isLooping = true;
+        pathResetTimer.callback = ResetPath;
     }
     
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         bool isKnockbacked = ProcessKnockback();
         if (!isKnockbacked && canMove)
         {
-            _navigator.isStopped = false;
             switch (currentState)
             {
                 case EnemyState.Chase:
@@ -31,6 +47,8 @@ public class RegularEnemy : LivingBeing
                     break;
                 case EnemyState.Attack:
                     Attack();
+                    break;
+                case EnemyState.Die:
                     break;
             }   
         }
@@ -41,20 +59,41 @@ public class RegularEnemy : LivingBeing
         }
     }
     
-    private void Chase()
+    protected virtual void Chase()
     {
-        _navigator.SetDestination(player.transform.position);
         SetRotation(_navigator.transform.eulerAngles.y);
-        transform.position += _navigator.speed * Time.deltaTime * transform.forward;
         _navigator.transform.localPosition = Vector3.zero;
-    }
-
-    private void Attack()
-    {
+        transform.position += _navigator.speed * Time.deltaTime * transform.forward;
+        
+        Transform closestPlayer = FindClosestPlayer();
+        float distance2Player = Vector3.Distance(transform.position, closestPlayer.position);
+        if (distance2Player <= attackDistance)
+        {
+            currentState = EnemyState.Attack;
+            _navigator.isStopped = true;
+            _navigator.velocity = Vector3.zero;
+            pathResetTimer.Stop();
+        } else if (pathResetTimer.IsStopped())
+        {
+            pathResetTimer.Begin();
+        }
         
     }
+
+    protected virtual void Attack()
+    {
+        Transform closestPlayer = FindClosestPlayer();
+        float distance2Player = Vector3.Distance(transform.position, closestPlayer.position);
+        if (distance2Player > attackDistance)
+        {
+            currentState = EnemyState.Chase;
+            pathResetTimer.Begin();
+        }
+        
+        gameObject.transform.LookAt(closestPlayer);
+    }
     
-    void SetRotation(float newRotation)
+    protected void SetRotation(float newRotation)
     {
         double roundedRotation = Math.Round(newRotation / 45.0f, MidpointRounding.AwayFromZero);
         roundedRotation *= 45.0f;
@@ -66,7 +105,33 @@ public class RegularEnemy : LivingBeing
         base.TakeDamage(damage, knockbackPower, knockbackDir);
         if (hp <= 0)
         {
-            //TODO
+            GameController.instance.EnemyDeath(this);
+            GetComponent<CapsuleCollider>().enabled = false;
+            _navigator.isStopped = true;
+            currentState = EnemyState.Die;
         }
+    }
+
+    protected Transform FindClosestPlayer()
+    {
+        float minDistance = Vector3.Distance(transform.position, GameController.instance.players[0].transform.position);
+        Transform bestChoice = GameController.instance.players[0].transform;
+        foreach (PlayerController player in GameController.instance.players)
+        {
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                bestChoice = player.transform;
+            }
+        }
+
+        return bestChoice.transform;
+    }
+
+    private void ResetPath()
+    {
+        _navigator.isStopped = false;
+        _navigator.SetDestination(FindClosestPlayer().position);
     }
 }

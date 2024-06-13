@@ -6,11 +6,10 @@ public class RocketBullet : Bullet {
     [SerializeField]
     protected float explosionRange;
     
-
+    
     protected override void OnTriggerEnter(Collider other)
     {
         Collider[] collidingInRadius = Physics.OverlapSphere(transform.position, explosionRange);
-        
         foreach (Collider col in collidingInRadius)
         {
             LivingBeing hitBeing = col.gameObject.GetComponent<LivingBeing>();       
@@ -25,7 +24,7 @@ public class RocketBullet : Bullet {
                 }
                 else
                 {
-                    dirVector = _direction;
+                    dirVector = new Vector3(_direction.x, 0, _direction.y);
                 }
 
                 float distance2Target = Vector3.Distance(transform.position, hitBeing.transform.position);
@@ -37,6 +36,4 @@ public class RocketBullet : Bullet {
             }
         }
     }
-    
-    
 }

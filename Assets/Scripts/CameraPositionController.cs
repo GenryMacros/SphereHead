@@ -1,12 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraPositionController : MonoBehaviour
 {
     [SerializeField]
     private PlayerController _player;
-
+    
+    [SerializeField]
+    private GameObject _topLeftCorner;
+    [SerializeField]
+    private GameObject _bottomRightCorner;
+    
     private Vector3 _initialShift;
     private Camera _cam;
     
@@ -22,9 +25,26 @@ public class CameraPositionController : MonoBehaviour
         if (playerViewportPos.y > 0.7 || playerViewportPos.y < 0.7 || 
             playerViewportPos.x > 0.7 || playerViewportPos.x < 0.7)
         {
-            _cam.transform.position = new Vector3(_player.transform.position.x + _initialShift.x, 
-                                                  _cam.transform.position.y, 
-                                                  _player.transform.position.z + _initialShift.z);
+            float newX = _player.transform.position.x;
+            float newZ = _player.transform.position.z;
+            
+            if (newX <= _topLeftCorner.transform.position.x)
+            {
+                newX = _topLeftCorner.transform.position.x;
+            } else if (newX >= _bottomRightCorner.transform.position.x)
+            {
+                newX = _bottomRightCorner.transform.position.x; 
+            }
+            
+            if (newZ >= _topLeftCorner.transform.position.z)
+            {
+                newZ = _topLeftCorner.transform.position.z;
+            } else if (newZ <= _bottomRightCorner.transform.position.z)
+            {
+                newZ = _bottomRightCorner.transform.position.z;
+            }
+            
+            _cam.transform.position = new Vector3(newX + _initialShift.x, _cam.transform.position.y, newZ + _initialShift.z);
         }
     }
 }

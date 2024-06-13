@@ -17,7 +17,7 @@ public class LivingBeing : MonoBehaviour
     private float knockbackSpeed = 30;
     private Vector3 _knockbackDir;
 
-    protected void Start()
+    protected virtual void Start()
     {
         knockbackTimer.isLooping = false;
         knockbackTimer.waitTime = knockbackRecoverTime;

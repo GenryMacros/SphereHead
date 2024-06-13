@@ -9,12 +9,14 @@ public class PlayerController : LivingBeing
     
     [SerializeField]
     protected WeaponWheelController weaponWheel;
+    [SerializeField]
+    protected PlayerBar bar;
     
     private Vector2 _lastInput;
     private bool _isMoving = false;
     private bool _isShooting = false;
 
-    void Start()
+    protected override void Start()
     {
         base.Start();
         weaponWheel.gameObject.SetActive(false);
@@ -58,6 +60,13 @@ public class PlayerController : LivingBeing
                 activeWeapon.gameObject.SetActive(false);
                 activeWeapon = selectedWeapon;
                 activeWeapon.gameObject.SetActive(true);
+                bar.gunName.text = activeWeapon.GetWeaponName();
+
+                int ammotCount = activeWeapon.GetAmmoCount();
+                if (ammotCount != -1)
+                {
+                    bar.gunName.text = bar.gunName.text + ":" + ammotCount;
+                }
             }
             weaponWheel.gameObject.SetActive(false);
         }
@@ -70,14 +79,23 @@ public class PlayerController : LivingBeing
         {
             if (_isMoving)
             {
+                Quaternion preTransformBarRotation = bar.gameObject.transform.rotation;
+
                 Vector2 velocity = speed * Time.deltaTime * _lastInput;
                 transform.Translate(new Vector3(velocity.x, 0, velocity.y), Space.World);
                 transform.forward = new Vector3(_lastInput.x, 0, _lastInput.y);
+                
+                bar.gameObject.transform.rotation = preTransformBarRotation;
             }
 
             if (_isShooting)
             {
                 activeWeapon.Fire();
+                int ammotCount = activeWeapon.GetAmmoCount();
+                if (ammotCount != -1)
+                {
+                    bar.gunName.text = activeWeapon.GetWeaponName() + ":" + ammotCount;
+                }
             }
         }
     }
@@ -85,6 +103,7 @@ public class PlayerController : LivingBeing
     public override void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir)
     {
         base.TakeDamage(damage, knockbackPower, knockbackDir);
+        bar.Damage(damage);
         if (hp <= 0)
         {
             //TODO
