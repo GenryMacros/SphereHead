@@ -81,6 +81,7 @@ MonoBehaviour:
   minDamage: 0
   maxDamage: 0
   maxHp: 0
+  scoreWorth: 100
   _navigator: {fileID: 1435028175812205562}
   attackDistance: 0
   pathResetTimer: {fileID: 1427770478788995137}

@@ -155,6 +155,7 @@ MonoBehaviour:
   minDamage: 1
   maxDamage: 10
   maxHp: 500
+  scoreWorth: 500
   _navigator: {fileID: 3949252735699192199}
   attackDistance: 0
   pathResetTimer: {fileID: 8384522592884422445}
@@ -168,7 +169,6 @@ MonoBehaviour:
   maxFireRate: 0.1
   minKnockbackPower: 1
   maxKnockbackPower: 3
-  _projectilePrefab: {fileID: 7222659962651367186, guid: d867c715980507c49921226cd2f4ab7d, type: 3}
   spawnPoint: {fileID: 5903697095370942062}
 --- !u!1 &5903697095370942062
 GameObject:

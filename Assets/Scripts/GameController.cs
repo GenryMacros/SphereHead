@@ -31,12 +31,14 @@ public class GameController : MonoBehaviour
     
     [SerializeField]
     private EnemySpawner _spawner;
-    
     [SerializeField]
     private float timeBetweenWaves;
-    
     [SerializeField]
     private int _maxWaves;
+    
+    [SerializeField]
+    private ScoreManager _scoreManager;
+    
     private int _enemiesCurrentWave;
     private int _currentWave = 1;
     
@@ -60,7 +62,7 @@ public class GameController : MonoBehaviour
         return _maxWaves;
     }
     
-    public void EnemyDeath(LivingBeing deadEnemy)
+    public void EnemyDeath(LivingBeing deadEnemy, int scoreWorth)
     {
         if (deadEnemy is RangedEnemy)
         {
@@ -76,6 +78,13 @@ public class GameController : MonoBehaviour
         {
             WaveCleared();
         }
+
+        _scoreManager.IncrementScore(scoreWorth, true);
+    }
+
+    public void HaltScoreDecrease()
+    {
+        _scoreManager.IncrementScore(0, false);
     }
     
     private void WaveCleared()

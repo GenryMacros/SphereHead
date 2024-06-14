@@ -11,6 +11,7 @@ public class RegularEnemy : LivingBeing
     public float minDamage;
     public float maxDamage;
     public float maxHp;
+    public int scoreWorth;
     
     [SerializeField]
     protected NavMeshAgent _navigator;
@@ -105,10 +106,14 @@ public class RegularEnemy : LivingBeing
         base.TakeDamage(damage, knockbackPower, knockbackDir);
         if (hp <= 0)
         {
-            GameController.instance.EnemyDeath(this);
+            GameController.instance.EnemyDeath(this, scoreWorth);
             GetComponent<CapsuleCollider>().enabled = false;
             _navigator.isStopped = true;
             currentState = EnemyState.Die;
+        }
+        else
+        {
+            GameController.instance.HaltScoreDecrease();
         }
     }
 
