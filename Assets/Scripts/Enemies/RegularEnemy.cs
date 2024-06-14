@@ -8,32 +8,62 @@ public class RegularEnemy : LivingBeing
 {
     public enum EnemyState {Chase, Attack, Die};
     public EnemyState currentState = EnemyState.Chase;
+    
     public float minDamage;
     public float maxDamage;
+    
+    public float minFireRate;
+    public float maxFireRate;
+    
+    public float minKnockbackPower;
+    public float maxKnockbackPower;
+    
     public float maxHp;
     public int scoreWorth;
     
     [SerializeField]
     protected NavMeshAgent _navigator;
-    protected float damage;
-    
     [SerializeField]
     protected float attackDistance;
-    
     [SerializeField] 
     protected Timer pathResetTimer;
+    [SerializeField] 
+    protected GameObject spawnPoint;
     
+    protected float damage;
+    protected Weapon _gun;
+    
+    private BoxCollider _hitBox;
     
     protected override void Start()
     {
         base.Start();
         float t = (float)GameController.instance.GetCurrentWave() / GameController.instance.GetMaxWaves();
-        damage = Mathf.Lerp(minDamage, maxDamage, t);
         hp = Mathf.Lerp(hp, maxHp, t);
 
         pathResetTimer.waitTime = 2;
         pathResetTimer.isLooping = true;
         pathResetTimer.callback = ResetPath;
+        _hitBox = GetComponent<BoxCollider>();
+    }
+    
+    public virtual void SetGun(Weapon gun)
+    {
+        
+        float t = (float)GameController.instance.GetCurrentWave() / GameController.instance.GetMaxWaves();
+        _gun = gun;
+        damage = Mathf.Lerp(minDamage, maxDamage, t);
+        _gun.ResetSpawnPoint(spawnPoint);
+        
+        _gun.rateOfFire = Mathf.Lerp(minFireRate, maxFireRate, t);
+        _gun.damage = damage;
+        _gun.knockbackPower = Mathf.Lerp(minKnockbackPower, maxKnockbackPower, t);
+        _gun.maxBulletTravelDistance = attackDistance;
+    }
+
+    public BoxCollider GetMeleeHitBox()
+    {
+        return _hitBox;
     }
     
     protected virtual void FixedUpdate()
@@ -92,6 +122,8 @@ public class RegularEnemy : LivingBeing
         }
         
         gameObject.transform.LookAt(closestPlayer);
+        SetRotation(gameObject.transform.eulerAngles.y);
+        _gun.Fire();
     }
     
     protected void SetRotation(float newRotation)

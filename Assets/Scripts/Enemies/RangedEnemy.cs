@@ -10,16 +10,7 @@ public class RangedEnemy : RegularEnemy
     
     public float minBulletSpeed;
     public float maxBulletSpeed;
-    
-    public float minFireRate;
-    public float maxFireRate;
-    
-    public float minKnockbackPower;
-    public float maxKnockbackPower;
-    
-    private Gun _gun;
-    [SerializeField]
-    protected GameObject spawnPoint;
+        
 
     protected override void Start()
     {
@@ -27,13 +18,16 @@ public class RangedEnemy : RegularEnemy
         pathResetTimer.waitTime = 0.5f;  
     }
     
-    public void SetGun(Gun gun)
+    public override void SetGun(Weapon gun)
     {
         float t = (float)GameController.instance.GetCurrentWave() / GameController.instance.GetMaxWaves();
         _gun = gun;
         
         _gun.ResetSpawnPoint(spawnPoint);
-        _gun.projectileScaleMultiplier = Mathf.Lerp(minProjectileSize, maxProjectileSize, t);
+        if (gun is Gun)
+        {
+            ((Gun)_gun).projectileScaleMultiplier = Mathf.Lerp(minProjectileSize, maxProjectileSize, t);   
+        }
         _gun.rateOfFire = Mathf.Lerp(minFireRate, maxFireRate, t);
         _gun.damage = damage;
         _gun.knockbackPower = Mathf.Lerp(minKnockbackPower, maxKnockbackPower, t);

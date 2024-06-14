@@ -57,7 +57,7 @@ public class Weapon : MonoBehaviour
         return isReady;
     }
 
-    public void ResetSpawnPoint(GameObject newSpawnPoint)
+    public virtual void ResetSpawnPoint(GameObject newSpawnPoint)
     {
         spawnPoint = newSpawnPoint;
     }

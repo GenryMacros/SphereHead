@@ -19,9 +19,9 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] 
     private Timer timer;
 
-    private bool _isFading = false;
+    private bool _isFading;
     private int _currentMultiplier= 1;
-    private int _currentScore = 0;
+    private int _currentScore;
     
     void Start()
     {
@@ -89,7 +89,6 @@ public class ScoreManager : MonoBehaviour
         {
             newScoreString = newScoreString.Insert(0,"0");
         }
-        Debug.Log(newScoreString);
         scoreText.text = newScoreString;
     }
     
@@ -103,7 +102,6 @@ public class ScoreManager : MonoBehaviour
         {
             newMultiplierString = newMultiplierString.Insert(0,"0");
         }
-        Debug.Log(newMultiplierString);
         scoreMultiplierText.text = newMultiplierString;
     }
 }

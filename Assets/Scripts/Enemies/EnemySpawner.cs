@@ -20,6 +20,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] 
     private Gun rangedEnemyGun;
     
+    [SerializeField] 
+    private MeleeWeapon meleeEnemyWeapon;
+    
     private void Start()
     {
         timer.isLooping = true;
@@ -55,6 +58,9 @@ public class EnemySpawner : MonoBehaviour
             {
                 Vector3 position = SelectedRandomPosition(false);
                 RegularEnemy newRegular = Instantiate(regularPrefab, transform);
+                MeleeWeapon newGun = Instantiate(meleeEnemyWeapon, newRegular.transform);
+                
+                newRegular.SetGun(newGun);
                 newRegular.transform.position = position;
                 
                 _currentTask.regularEnemies -= 1;

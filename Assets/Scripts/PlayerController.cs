@@ -103,6 +103,7 @@ public class PlayerController : LivingBeing
     public override void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir)
     {
         base.TakeDamage(damage, knockbackPower, knockbackDir);
+        Debug.Log("attacked");
         bar.Damage(damage);
         if (hp <= 0)
         {
