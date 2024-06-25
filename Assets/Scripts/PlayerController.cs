@@ -8,12 +8,14 @@ public class PlayerController : LivingBeing
     public Weapon activeWeapon;
     
     [SerializeField]
-    protected Animator _animtor;
+    protected Animator _animator;
     [SerializeField]
     protected WeaponWheelController weaponWheel;
     [SerializeField]
     protected PlayerBar bar;
-    
+
+    private Weapon _newWeapon = null;
+    private bool _isChangingWeapon = false;
     private Vector2 _lastInput;
     private bool _isMoving = false;
     private bool _isShooting = false;
@@ -27,7 +29,6 @@ public class PlayerController : LivingBeing
             item.representedWeapon.gameObject.SetActive(false);
         }
         activeWeapon.gameObject.SetActive(true);
-     
     }
     
     public void OnFire(InputAction.CallbackContext context)
@@ -42,9 +43,18 @@ public class PlayerController : LivingBeing
         if (input == Vector2.zero)
         {
             _isMoving = false;
+            _animator.SetTrigger("WalkStop");
             return;
         }
 
+        if (!_isMoving)
+        {
+            if (_animator.GetCurrentAnimatorStateInfo(1).IsName("Armature_Idle") ||
+                _animator.GetCurrentAnimatorStateInfo(1).IsName("Armature_Walk end"))
+            {
+                _animator.SetTrigger("Walk");
+            }
+        }
         _isMoving = true;
     }
     
@@ -53,25 +63,19 @@ public class PlayerController : LivingBeing
         if (context.performed)
         {
             weaponWheel.gameObject.SetActive(true);
+            _animator.ResetTrigger("Rearm");
         }
         else
         {
+            _isChangingWeapon = true;
             Weapon selectedWeapon = weaponWheel.GetSelectedWeapon();
-            Debug.Log(selectedWeapon.GetWeaponName());
+            
             if (selectedWeapon.IsReady())
             {
-                activeWeapon.gameObject.SetActive(false);
-                activeWeapon = selectedWeapon;
-                activeWeapon.gameObject.SetActive(true);
-                bar.gunName.text = activeWeapon.GetWeaponName();
-
-                int ammotCount = activeWeapon.GetAmmoCount();
-                if (ammotCount != -1)
-                {
-                    bar.gunName.text = bar.gunName.text + ":" + ammotCount;
-                }
+                _newWeapon = selectedWeapon;
             }
             weaponWheel.gameObject.SetActive(false);
+            _animator.SetTrigger("Rearm");
         }
     }
 
@@ -101,6 +105,13 @@ public class PlayerController : LivingBeing
                 }
             }
         }
+
+        if (_newWeapon && _isChangingWeapon && _animator.GetCurrentAnimatorStateInfo(0).IsName("Armature_Rearm") && _animator.IsInTransition(0))
+        {
+            activeWeapon.gameObject.SetActive(false);
+            SwitchWeapon(_newWeapon);
+            _newWeapon = null;
+        }
     }
 
     public override void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir)
@@ -111,6 +122,20 @@ public class PlayerController : LivingBeing
         if (hp <= 0)
         {
             //TODO
+        }
+    }
+
+    private void SwitchWeapon(Weapon newWeapon)
+    {
+        activeWeapon.gameObject.SetActive(false);
+        activeWeapon = newWeapon;
+        activeWeapon.gameObject.SetActive(true);
+        bar.gunName.text = activeWeapon.GetWeaponName();
+
+        int ammotCount = activeWeapon.GetAmmoCount();
+        if (ammotCount != -1)
+        {
+            bar.gunName.text = bar.gunName.text + ":" + ammotCount;
         }
     }
 }
