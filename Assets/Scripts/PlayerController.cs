@@ -8,6 +8,8 @@ public class PlayerController : LivingBeing
     public Weapon activeWeapon;
     
     [SerializeField]
+    protected Animator _animtor;
+    [SerializeField]
     protected WeaponWheelController weaponWheel;
     [SerializeField]
     protected PlayerBar bar;
@@ -25,6 +27,7 @@ public class PlayerController : LivingBeing
             item.representedWeapon.gameObject.SetActive(false);
         }
         activeWeapon.gameObject.SetActive(true);
+     
     }
     
     public void OnFire(InputAction.CallbackContext context)
