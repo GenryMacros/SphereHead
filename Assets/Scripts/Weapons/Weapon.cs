@@ -24,7 +24,7 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     protected bool isReady = false;
     
-    protected bool isReadyToFire = true;
+    public bool isReadyToFire = true;
     
     [SerializeField]
     protected int maxAmmo;
@@ -63,7 +63,7 @@ public class Weapon : MonoBehaviour
     
     public string GetWeaponName()
     {
-        return isReady ? weaponName: "?????";
+        return weaponName;
     }
 
     public bool IsReady()

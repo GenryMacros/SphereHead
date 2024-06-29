@@ -1,0 +1,10 @@
+{
+    "upgrades": [
+        {
+            "scoreRequired": 100,
+            "weaponName": "Shotgun",
+            "upgradeName": "Shotgun unlocked",
+            "upgradeParameters": {}
+        }
+    ]
+}

@@ -60,7 +60,7 @@ public class PlayerController : LivingBeing
     {
         if (context.performed)
         {
-            weaponWheel.gameObject.SetActive(true);
+            weaponWheel.Activate();
             _animator.ResetTrigger("Rearm");
         }
         else
@@ -68,12 +68,12 @@ public class PlayerController : LivingBeing
             _isChangingWeapon = true;
             Weapon selectedWeapon = weaponWheel.GetSelectedWeapon();
             
-            if (selectedWeapon.IsReady())
+            if (selectedWeapon.isReadyToFire)
             {
                 _newWeapon = selectedWeapon;
+                _animator.SetTrigger("Rearm");
             }
-            weaponWheel.gameObject.SetActive(false);
-            _animator.SetTrigger("Rearm");
+            weaponWheel.Deactivate();
         }
     }
 

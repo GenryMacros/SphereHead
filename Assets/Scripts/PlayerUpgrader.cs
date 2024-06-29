@@ -10,12 +10,12 @@ public class PlayerUpgrader : MonoBehaviour
     private Notificator _notificator;
     
     private UpgradeTree _tree;
-    private int _lastScore;
+    private int _lastScore = 0;
     private int _nextUpgrade = 0;
     
     void Start()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>("TextData/upgrade_tree.json");
+        TextAsset jsonFile = Resources.Load<TextAsset>("TextData/upgrade_tree");
         _tree = JsonUtility.FromJson<UpgradeTree>(jsonFile.text);
     }
     
@@ -27,7 +27,7 @@ public class PlayerUpgrader : MonoBehaviour
         }
 
         _lastScore = newScore;
-        while (_nextUpgrade < _tree.upgrades.Count && _tree.upgrades[_nextUpgrade].scoreRequired < _lastScore)
+        while (_nextUpgrade < _tree.upgrades.Count && _tree.upgrades[_nextUpgrade].scoreRequired <= _lastScore)
         {
             Upgrade upgrade = _tree.upgrades[_nextUpgrade];
             foreach (var weapon in _weapons)

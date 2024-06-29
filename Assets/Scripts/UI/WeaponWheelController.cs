@@ -52,4 +52,18 @@ public class WeaponWheelController : MonoBehaviour
     {
         return pieParts[_previousSelection].representedWeapon;
     }
+
+    public void Activate()
+    {
+        gameObject.SetActive(true);
+        foreach (WeaponWheelItem part in pieParts)
+        {
+            part.DetermineBackground();
+        }
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
 }

@@ -6,6 +6,8 @@ public class WeaponWheelItem : MonoBehaviour
     public Color hoverColor;
     public Color baseColor;
     public Image background;
+    public Image inactiveIcon;
+    public Image activeIcon;
     public Weapon representedWeapon;
     
     void Start()
@@ -26,5 +28,19 @@ public class WeaponWheelItem : MonoBehaviour
     public void SwitchIcon()
     {
         background.color = baseColor;
+    }
+
+    public void DetermineBackground()
+    {
+        if (representedWeapon.isReadyToFire)
+        {
+            activeIcon.gameObject.SetActive(true);
+            inactiveIcon.gameObject.SetActive(false);
+        }
+        else
+        {
+            activeIcon.gameObject.SetActive(false);
+            inactiveIcon.gameObject.SetActive(true); 
+        }
     }
 }

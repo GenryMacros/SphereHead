@@ -4,10 +4,10 @@ using UnityEngine;
 public class Notificator : MonoBehaviour
 {
     [SerializeField] 
-    private float _notificationDissappearTime;
+    private float _notificationDissappearStartTime;
     [SerializeField] 
     private List<NotificationText> _textSockets;
-    private List<string> _pendingNotifications;
+    private List<string> _pendingNotifications = new List<string>();
 
     public void TextSocketOpened()
     {
@@ -27,7 +27,7 @@ public class Notificator : MonoBehaviour
     {
         foreach (NotificationText tex in _textSockets)
         {
-            tex.notificationDissappearTime = _notificationDissappearTime;
+            tex.notificationDissappearStartTime = _notificationDissappearStartTime;
         }
     }
     
@@ -54,7 +54,7 @@ public class Notificator : MonoBehaviour
     {
         foreach (NotificationText nt_text in _textSockets)
         {
-            if (nt_text.text == null)
+            if (nt_text.text == "")
             {
                 return nt_text;
             }

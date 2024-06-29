@@ -29,6 +29,13 @@ public class Gun : Weapon
     
     public override void ApplyUpgrade(Upgrade upgrade)
     {
+        if (!isReadyToFire)
+        {
+            isReadyToFire = true;
+            ammo = maxAmmo;
+            return;
+        }
+        
         WeaponUpgrade newUpgrade = JsonUtility.FromJson<WeaponUpgrade>(upgrade.upgradeParameters);
         rateOfFire += rateOfFire * newUpgrade.rateOfFireChangePercent;
         damage += damage * newUpgrade.damageChangePercent;
@@ -36,7 +43,7 @@ public class Gun : Weapon
         bulletSpeed += bulletSpeed * newUpgrade.bulletSpeedChangePercent;
         maxBulletTravelDistance +=maxBulletTravelDistance * newUpgrade.maxBulletTravelDistanceChangePercent;
         maxAmmo += newUpgrade.maxAmmoIncrement;
-
+        
         ammo = maxAmmo;
     }
 }

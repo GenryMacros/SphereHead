@@ -50,6 +50,13 @@ public class Shotgun : Gun
     
     public override void ApplyUpgrade(Upgrade upgrade)
     {
+        if (!isReadyToFire)
+        {
+            isReadyToFire = true;
+            ammo = maxAmmo;
+            return;
+        }
+        
         ShotgunUpgrade newUpgrade = JsonUtility.FromJson<ShotgunUpgrade>(upgrade.upgradeParameters);
         rateOfFire += rateOfFire * newUpgrade.rateOfFireChangePercent;
         damage += damage * newUpgrade.damageChangePercent;
