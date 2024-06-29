@@ -1,7 +1,20 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+
+
+[System.Serializable]
+public struct ShotgunUpgrade
+{
+    public float rateOfFireChangePercent;
+    public float damageChangePercent;
+    public float knockbackPowerChangePercent;
+    public float bulletSpeedChangePercent;
+    public float maxBulletTravelDistanceChangePercent;  
+    public float spreadConeAngleChangePercent;
+    public int bulletsPerShotChange;
+    public int maxAmmoIncrement;
+}
+
 
 public class Shotgun : Gun
 {
@@ -34,4 +47,19 @@ public class Shotgun : Gun
         }
         base.Fire();
     } 
+    
+    public override void ApplyUpgrade(Upgrade upgrade)
+    {
+        ShotgunUpgrade newUpgrade = JsonUtility.FromJson<ShotgunUpgrade>(upgrade.upgradeParameters);
+        rateOfFire += rateOfFire * newUpgrade.rateOfFireChangePercent;
+        damage += damage * newUpgrade.damageChangePercent;
+        knockbackPower += knockbackPower * newUpgrade.knockbackPowerChangePercent;
+        bulletSpeed += bulletSpeed * newUpgrade.bulletSpeedChangePercent;
+        maxBulletTravelDistance +=maxBulletTravelDistance * newUpgrade.maxBulletTravelDistanceChangePercent;
+        maxAmmo += newUpgrade.maxAmmoIncrement;
+        spreadConeAngle += spreadConeAngle * newUpgrade.spreadConeAngleChangePercent;
+        bulletsPerShot += newUpgrade.bulletsPerShotChange;
+        
+        ammo = maxAmmo;
+    }
 }

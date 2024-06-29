@@ -18,7 +18,9 @@ public class ScoreManager : MonoBehaviour
     private float multiplierFadeTime;
     [SerializeField] 
     private Timer timer;
-
+    [SerializeField]
+    private PlayerUpgrader _upgrader;
+    
     private bool _isFading;
     private int _currentMultiplier= 1;
     private int _currentScore;
@@ -70,6 +72,7 @@ public class ScoreManager : MonoBehaviour
         
         try {
             _currentScore = checked (_currentScore + increment * _currentMultiplier);
+            _upgrader.ScoreUpdate(_currentScore);
         } catch (OverflowException)
         {
             _currentScore = int.MaxValue;

@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 public class Gun : Weapon
 {
     public float projectileScaleMultiplier = 1.0f;
@@ -23,5 +25,18 @@ public class Gun : Weapon
     void FixedUpdate()
     {
         
+    }
+    
+    public override void ApplyUpgrade(Upgrade upgrade)
+    {
+        WeaponUpgrade newUpgrade = JsonUtility.FromJson<WeaponUpgrade>(upgrade.upgradeParameters);
+        rateOfFire += rateOfFire * newUpgrade.rateOfFireChangePercent;
+        damage += damage * newUpgrade.damageChangePercent;
+        knockbackPower += knockbackPower * newUpgrade.knockbackPowerChangePercent;
+        bulletSpeed += bulletSpeed * newUpgrade.bulletSpeedChangePercent;
+        maxBulletTravelDistance +=maxBulletTravelDistance * newUpgrade.maxBulletTravelDistanceChangePercent;
+        maxAmmo += newUpgrade.maxAmmoIncrement;
+
+        ammo = maxAmmo;
     }
 }

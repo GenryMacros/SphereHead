@@ -43,18 +43,16 @@ public class PlayerController : LivingBeing
         if (input == Vector2.zero)
         {
             _isMoving = false;
-            _animator.SetTrigger("WalkStop");
+            _animator.SetBool("IsWalking", false);
             return;
         }
-
-        if (!_isMoving)
+        
+        if (_animator.GetCurrentAnimatorStateInfo(1).IsName("Armature_Idle") ||
+            _animator.GetCurrentAnimatorStateInfo(1).IsName("Armature_Walk end"))
         {
-            if (_animator.GetCurrentAnimatorStateInfo(1).IsName("Armature_Idle") ||
-                _animator.GetCurrentAnimatorStateInfo(1).IsName("Armature_Walk end"))
-            {
-                _animator.SetTrigger("Walk");
-            }
+            _animator.SetBool("IsWalking", true);
         }
+        
         _isMoving = true;
     }
     

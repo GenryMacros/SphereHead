@@ -1,6 +1,18 @@
 using UnityEngine;
 
 
+[System.Serializable]
+public struct WeaponUpgrade
+{
+    public float rateOfFireChangePercent;
+    public float damageChangePercent;
+    public float knockbackPowerChangePercent;
+    public float bulletSpeedChangePercent;
+    public float maxBulletTravelDistanceChangePercent;
+    public int maxAmmoIncrement;
+}
+
+
 public class Weapon : MonoBehaviour
 {
     public float rateOfFire;
@@ -14,6 +26,8 @@ public class Weapon : MonoBehaviour
     
     protected bool isReadyToFire = true;
     
+    [SerializeField]
+    protected int maxAmmo;
     [SerializeField]
     protected int ammo;
     [SerializeField]
@@ -56,7 +70,12 @@ public class Weapon : MonoBehaviour
     {
         return isReady;
     }
-
+    
+    public virtual void ApplyUpgrade(Upgrade upgrade)
+    {
+        
+    }
+    
     public virtual void ResetSpawnPoint(GameObject newSpawnPoint)
     {
         spawnPoint = newSpawnPoint;
