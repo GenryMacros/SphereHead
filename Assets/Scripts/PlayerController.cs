@@ -68,7 +68,7 @@ public class PlayerController : LivingBeing
             _isChangingWeapon = true;
             Weapon selectedWeapon = weaponWheel.GetSelectedWeapon();
             
-            if (selectedWeapon.isReadyToFire)
+            if (selectedWeapon.IsReady())
             {
                 _newWeapon = selectedWeapon;
                 _animator.SetTrigger("Rearm");

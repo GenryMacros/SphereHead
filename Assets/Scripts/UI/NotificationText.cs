@@ -16,13 +16,13 @@ public class NotificationText : MonoBehaviour
     private float notificationDissappearTime = 2;
     private float notificationDissappearTimeRecorded;
     
-    public void ResetText(string newText)
+    public void ResetText(string newText, Color textColor)
     {
         notificationDissappearTimeRecorded = 0;
         _isFading = false;
         text = newText;
         _uiText.text = text;
-        _uiText.color = _textColor;
+        _uiText.color = textColor;
         Invoke(nameof(StartFading), notificationDissappearStartTime);
     }
 

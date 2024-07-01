@@ -2,9 +2,59 @@
     "upgrades": [
         {
             "scoreRequired": 100,
+            "weaponName": "Pistol",
+            "upgradeName": "Pistol DMG",
+            "type": 0,
+            "upgradeParameters": [{
+                "rateOfFireChangePercent": 0.0,
+                "damageChangePercent": 0.2,
+                "knockbackPowerChangePercent": 0.0,
+                "bulletSpeedChangePercent": 0.0,
+                "maxBulletTravelDistanceChangePercent": 0.0,
+                "maxAmmoIncrement": 0.0
+            }]
+        },
+        {
+            "scoreRequired": 300,
+            "weaponName": "Minigun",
+            "upgradeName": "Minigun unlock",
+            "type": 2,
+            "upgradeParameters": [{
+                "rateOfFireChangePercent": 0.2,
+                "damageChangePercent": 0.0,
+                "knockbackPowerChangePercent": 0.0,
+                "bulletSpeedChangePercent": 0,
+                "maxBulletTravelDistanceChangePercent": 0,
+                "maxAmmoIncrement": 0
+            }]
+        },
+        {
+            "scoreRequired": 400,
             "weaponName": "Shotgun",
-            "upgradeName": "Shotgun unlocked",
-            "upgradeParameters": {}
+            "upgradeName": "Shotgun unlock",
+            "type": 2,
+            "upgradeParameters": [{
+                "rateOfFireChangePercent": 0.2,
+                "damageChangePercent": 0.0,
+                "knockbackPowerChangePercent": 0.0,
+                "bulletSpeedChangePercent": 0,
+                "maxBulletTravelDistanceChangePercent": 0,
+                "maxAmmoIncrement": 0
+            }]
+        },
+        {
+            "scoreRequired": 500,
+            "weaponName": "Rocket launcher",
+            "upgradeName": "Rocket launcher unlock",
+            "type": 2,
+            "upgradeParameters": [{
+                "rateOfFireChangePercent": 0.2,
+                "damageChangePercent": 0.0,
+                "knockbackPowerChangePercent": 0.0,
+                "bulletSpeedChangePercent": 0,
+                "maxBulletTravelDistanceChangePercent": 0,
+                "maxAmmoIncrement": 0
+            }]
         }
     ]
 }

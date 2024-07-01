@@ -35,7 +35,7 @@ public class PlayerUpgrader : MonoBehaviour
                 if (weapon.GetWeaponName() == upgrade.weaponName)
                 {
                     weapon.ApplyUpgrade(upgrade);
-                    _notificator.AppendNotification("+ " + upgrade.upgradeName);
+                    _notificator.AppendNotification("+ " + upgrade.upgradeName, upgrade.type);
                 }
             }
             _nextUpgrade += 1;

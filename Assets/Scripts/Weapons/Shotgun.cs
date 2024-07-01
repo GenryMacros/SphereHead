@@ -2,20 +2,6 @@ using System;
 using UnityEngine;
 
 
-[System.Serializable]
-public struct ShotgunUpgrade
-{
-    public float rateOfFireChangePercent;
-    public float damageChangePercent;
-    public float knockbackPowerChangePercent;
-    public float bulletSpeedChangePercent;
-    public float maxBulletTravelDistanceChangePercent;  
-    public float spreadConeAngleChangePercent;
-    public int bulletsPerShotChange;
-    public int maxAmmoIncrement;
-}
-
-
 public class Shotgun : Gun
 {
     [SerializeField]
@@ -57,7 +43,7 @@ public class Shotgun : Gun
             return;
         }
         
-        ShotgunUpgrade newUpgrade = JsonUtility.FromJson<ShotgunUpgrade>(upgrade.upgradeParameters);
+        WeaponUpgrade newUpgrade = upgrade.upgradeParameters[0];
         rateOfFire += rateOfFire * newUpgrade.rateOfFireChangePercent;
         damage += damage * newUpgrade.damageChangePercent;
         knockbackPower += knockbackPower * newUpgrade.knockbackPowerChangePercent;

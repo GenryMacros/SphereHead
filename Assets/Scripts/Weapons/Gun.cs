@@ -29,15 +29,15 @@ public class Gun : Weapon
     
     public override void ApplyUpgrade(Upgrade upgrade)
     {
-        if (!isReadyToFire)
+        if (!isReady)
         {
-            isReadyToFire = true;
+            isReady = true;
             ammo = maxAmmo;
             return;
         }
         
-        WeaponUpgrade newUpgrade = JsonUtility.FromJson<WeaponUpgrade>(upgrade.upgradeParameters);
-        rateOfFire += rateOfFire * newUpgrade.rateOfFireChangePercent;
+        WeaponUpgrade newUpgrade = upgrade.upgradeParameters[0];
+        rateOfFire -= rateOfFire * newUpgrade.rateOfFireChangePercent;
         damage += damage * newUpgrade.damageChangePercent;
         knockbackPower += knockbackPower * newUpgrade.knockbackPowerChangePercent;
         bulletSpeed += bulletSpeed * newUpgrade.bulletSpeedChangePercent;

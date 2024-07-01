@@ -1,17 +1,6 @@
 using UnityEngine;
 
 
-[System.Serializable]
-public struct WeaponUpgrade
-{
-    public float rateOfFireChangePercent;
-    public float damageChangePercent;
-    public float knockbackPowerChangePercent;
-    public float bulletSpeedChangePercent;
-    public float maxBulletTravelDistanceChangePercent;
-    public int maxAmmoIncrement;
-}
-
 
 public class Weapon : MonoBehaviour
 {
