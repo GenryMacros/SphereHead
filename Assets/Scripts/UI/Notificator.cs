@@ -5,7 +5,7 @@ using UnityEngine;
 public enum NotificationType
 {
     PlayerBuff = 0,
-    EnemyBuff = 1,
+    Enemy = 1,
     Unlock = 2
 }
 
@@ -28,12 +28,14 @@ public class Notificator : MonoBehaviour
     [SerializeField] 
     private float _notificationDissappearStartTime;
     [SerializeField] 
+    private NotificationText _specialTextSocket;
+    [SerializeField] 
     private List<NotificationText> _textSockets;
     private List<PendingNotification> _pendingNotifications = new List<PendingNotification>();
     private Dictionary<NotificationType, Color> notificationType2Color = new Dictionary<NotificationType, Color>()
     {
         { NotificationType.PlayerBuff, new Color(102.0f / 255, 255.0f / 255, 88.0f / 255, 1.0f)},
-        { NotificationType.EnemyBuff, new Color(203.0f / 255, 23.0f / 255, 40.0f / 255, 1.0f)},
+        { NotificationType.Enemy, new Color(203.0f / 255, 23.0f / 255, 40.0f / 255, 1.0f)},
         { NotificationType.Unlock, new Color(211.0f / 255, 196.0f / 255, 38.0f / 255, 1.0f)},
     };
     
@@ -73,7 +75,12 @@ public class Notificator : MonoBehaviour
             availableSocket.ResetText(text, notificationType2Color[notificationType]);
         }
     }
-
+    
+    public void AppendSpecialNotification(string text, NotificationType notificationType)
+    {
+        _specialTextSocket.ResetText(text, notificationType2Color[notificationType]);
+    }
+    
     private NotificationText FindAvailableSocket()
     {
         foreach (NotificationText nt_text in _textSockets)

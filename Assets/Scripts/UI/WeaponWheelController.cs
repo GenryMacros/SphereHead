@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +9,7 @@ public class WeaponWheelController : MonoBehaviour
 
     public WeaponWheelCenter center;
     public WeaponWheelItem[] pieParts;
-
+    
     private int _previousSelection;
     private WeaponWheelItem _menuItemSc;
     private WeaponWheelItem _previousMenuItemSc;
@@ -42,12 +43,18 @@ public class WeaponWheelController : MonoBehaviour
             pieParts[_previousSelection].Deselect();
             _previousSelection = selection;
             pieParts[selection].Select();
-            string selectedWeaponName = pieParts[selection].representedWeapon.GetWeaponName();
-            int selectedWeaponAmmo = pieParts[selection].representedWeapon.GetAmmoCount();
+            string selectedWeaponName = pieParts[selection].representedWeapon.IsReady() ? pieParts[selection].representedWeapon.GetWeaponName() : "????";
+
+            Gun cast = pieParts[selection].representedWeapon as Gun;
+            int selectedWeaponAmmo = -1;
+            if (cast)
+            {
+                selectedWeaponAmmo = cast.GetAmmoCount();
+            }
             center.ChangeText(selectedWeaponName, selectedWeaponAmmo);
         } 
     }
-
+    
     public Weapon GetSelectedWeapon()
     {
         return pieParts[_previousSelection].representedWeapon;
@@ -65,5 +72,18 @@ public class WeaponWheelController : MonoBehaviour
     public void Deactivate()
     {
         gameObject.SetActive(false);
+    }
+
+    public List<Weapon> GetArsenal()
+    {
+        List<Weapon> weapons = new List<Weapon>();
+        foreach (var piePart in pieParts)
+        {
+            if (piePart.representedWeapon.IsReady())
+            {
+                weapons.Add(piePart.representedWeapon);
+            }
+        }
+        return weapons;
     }
 }

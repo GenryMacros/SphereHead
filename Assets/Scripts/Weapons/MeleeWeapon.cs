@@ -18,11 +18,15 @@ public class MeleeWeapon : Weapon
         {
             foreach (Collider col in _colliders)
             {
+                if (!col)
+                {
+                    continue;
+                }
                 LivingBeing beingInRange = col.gameObject.GetComponent<LivingBeing>();
                 if (beingInRange)
                 {
                     beingInRange.TakeDamage(damage, knockbackPower, 
-                                new Vector2(transform.forward.x, transform.forward.z));
+                                new Vector2(transform.forward.x, transform.forward.z), owner);
                 }
             }   
         }

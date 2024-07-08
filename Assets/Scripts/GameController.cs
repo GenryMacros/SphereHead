@@ -30,6 +30,8 @@ public class GameController : MonoBehaviour
     private float _maxRangedEnemies;
     
     [SerializeField]
+    private Notificator _notificator;
+    [SerializeField]
     private EnemySpawner _spawner;
     [SerializeField]
     private float timeBetweenWaves;
@@ -96,15 +98,17 @@ public class GameController : MonoBehaviour
     private void StartNewWave()
     {
         SpawnTask task = new SpawnTask();
-        float t = (float)_currentWave / _maxWaves;
+        float t = (float)(_currentWave - 1) / _maxWaves;
 
         task.rangedEnemies = (int)Mathf.Lerp(_minRangedEnemies, _maxRangedEnemies, t);
         task.regularEnemies = (int)Mathf.Lerp(_minRegularEnemies, _maxRegularEnemies, t);
-        task.maxActiveRanged = task.rangedEnemies / 2;
+        task.maxActiveRanged = task.rangedEnemies > 1 ? task.rangedEnemies / 2 : 1;
         task.maxActiveRegular = task.regularEnemies / 2;
         task.isAllLocationsOpen = _currentWave >= _maxWaves / 2;
-
+        
         _enemiesCurrentWave = task.rangedEnemies + task.regularEnemies;
         _spawner.AssignTask(task);
+        
+        _notificator.AppendSpecialNotification($"Wave {_currentWave} start", NotificationType.Enemy);
     }
 }

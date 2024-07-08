@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,6 +30,16 @@ public class PlayerController : LivingBeing
             item.representedWeapon.gameObject.SetActive(false);
         }
         activeWeapon.gameObject.SetActive(true);
+        List<Weapon> weapons = weaponWheel.GetArsenal();
+
+        foreach (Weapon weapon in weapons)
+        {
+            Gun cast = weapon as Gun;
+            if (cast)
+            {
+                cast.ammoChanged += AmmoChange;
+            }
+        }
     }
     
     public void OnFire(InputAction.CallbackContext context)
@@ -46,13 +57,8 @@ public class PlayerController : LivingBeing
             _animator.SetBool("IsWalking", false);
             return;
         }
-        
-        if (_animator.GetCurrentAnimatorStateInfo(1).IsName("Armature_Idle") ||
-            _animator.GetCurrentAnimatorStateInfo(1).IsName("Armature_Walk end"))
-        {
-            _animator.SetBool("IsWalking", true);
-        }
-        
+
+        _animator.SetBool("IsWalking", true);
         _isMoving = true;
     }
     
@@ -96,15 +102,10 @@ public class PlayerController : LivingBeing
             if (_isShooting)
             {
                 activeWeapon.Fire();
-                int ammotCount = activeWeapon.GetAmmoCount();
-                if (ammotCount != -1)
-                {
-                    bar.gunName.text = activeWeapon.GetWeaponName() + ":" + ammotCount;
-                }
             }
         }
 
-        if (_newWeapon && _isChangingWeapon && _animator.GetCurrentAnimatorStateInfo(0).IsName("Armature_Rearm") && _animator.IsInTransition(0))
+        if (_newWeapon && _isChangingWeapon && _animator.GetCurrentAnimatorStateInfo(1).IsName("Rearm") && _animator.IsInTransition(1))
         {
             activeWeapon.gameObject.SetActive(false);
             SwitchWeapon(_newWeapon);
@@ -112,10 +113,10 @@ public class PlayerController : LivingBeing
         }
     }
 
-    public override void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir)
+    public override void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir, OwnerEntity damageCauser)
     {
-        base.TakeDamage(damage, knockbackPower, knockbackDir);
-        Debug.Log("attacked");
+        base.TakeDamage(damage, knockbackPower, knockbackDir, damageCauser);
+
         bar.Damage(damage);
         if (hp <= 0)
         {
@@ -125,15 +126,41 @@ public class PlayerController : LivingBeing
 
     private void SwitchWeapon(Weapon newWeapon)
     {
-        activeWeapon.gameObject.SetActive(false);
+        activeWeapon.Deactivate();
         activeWeapon = newWeapon;
-        activeWeapon.gameObject.SetActive(true);
+        activeWeapon.Activate();
         bar.gunName.text = activeWeapon.GetWeaponName();
 
-        int ammotCount = activeWeapon.GetAmmoCount();
-        if (ammotCount != -1)
+        AmmoChange();
+    }
+
+    private void AmmoChange()
+    {
+        Gun cast = activeWeapon as Gun;
+        if (cast && !cast.IsInfiniteAmmo())
         {
-            bar.gunName.text = bar.gunName.text + ":" + ammotCount;
+            int ammoCount = cast.GetAmmoCount();
+            bar.gunName.text = activeWeapon.GetWeaponName() + ":" + ammoCount;
         }
     }
+    
+    public float GetHP()
+    {
+        return bar.GetCurrentHealth();
+    }
+
+    public float GetMaxHP()
+    {
+        return bar.maxHealth;
+    }
+
+    public void Heal(float value)
+    {
+        bar.Heal(value);
+    }
+
+    public List<Weapon> GetArsenal()
+    {
+        return weaponWheel.GetArsenal();
+    } 
 }

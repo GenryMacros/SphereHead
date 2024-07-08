@@ -43,7 +43,7 @@ public class ScoreManager : MonoBehaviour
             multiplierForeground.fillAmount -= Time.deltaTime * _currentMultiplier;
             if (multiplierForeground.fillAmount <= 0)
             {
-                _currentMultiplier -= 1;
+                _currentMultiplier = Math.Max(_currentMultiplier - 1, 1);
                 if (_currentMultiplier != 1)
                 {
                     multiplierForeground.fillAmount = 1.0f;
@@ -78,7 +78,11 @@ public class ScoreManager : MonoBehaviour
             _currentScore = int.MaxValue;
         }
 
-        _currentMultiplier = isMultiplierGrown ? _currentMultiplier + 1 : _currentMultiplier;
+        if (increment > 0)
+        {
+            _currentMultiplier = isMultiplierGrown ? _currentMultiplier + 1 : _currentMultiplier;
+        }
+        
         ChangeUiScore();
         ChangeUiMultiplier();
     }

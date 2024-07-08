@@ -1,5 +1,13 @@
 using UnityEngine;
 
+
+public enum OwnerEntity
+{
+    Enemy = 0,
+    Player = 1
+}
+
+
 public class LivingBeing : MonoBehaviour
 {
     [SerializeField]
@@ -51,7 +59,7 @@ public class LivingBeing : MonoBehaviour
         return true;
     }
     
-    public virtual void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir)
+    public virtual void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir, OwnerEntity damageCauser)
     {
         hp -= damage;
         _knockbackDir = new Vector3(knockbackDir.x, 0, knockbackDir.y);

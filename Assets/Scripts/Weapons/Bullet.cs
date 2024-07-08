@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour
 {
     public float _damage;
     public float _knockbackPower;
+    public OwnerEntity source = OwnerEntity.Player;
     
     protected Vector2 _direction = Vector2.zero;
     protected float _speed = 0;
@@ -38,7 +39,7 @@ public class Bullet : MonoBehaviour
         LivingBeing hitBeing = other.gameObject.GetComponent<LivingBeing>();
         if (hitBeing)
         {
-            hitBeing.TakeDamage(_damage, _knockbackPower, _direction);
+            hitBeing.TakeDamage(_damage, _knockbackPower, _direction, source);
             SelfDestruct();
         }
     }

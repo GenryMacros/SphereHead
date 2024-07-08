@@ -58,7 +58,6 @@ public class RegularEnemy : LivingBeing
         _gun.rateOfFire = Mathf.Lerp(minFireRate, maxFireRate, t);
         _gun.damage = damage;
         _gun.knockbackPower = Mathf.Lerp(minKnockbackPower, maxKnockbackPower, t);
-        _gun.maxBulletTravelDistance = attackDistance;
     }
 
     public BoxCollider GetMeleeHitBox()
@@ -97,7 +96,8 @@ public class RegularEnemy : LivingBeing
         transform.position += _navigator.speed * Time.deltaTime * transform.forward;
         
         Transform closestPlayer = FindClosestPlayer();
-        float distance2Player = Vector3.Distance(transform.position, closestPlayer.position);
+        float distance2Player = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
+                                                 new Vector2(closestPlayer.position.x, closestPlayer.position.z));
         if (distance2Player <= attackDistance)
         {
             currentState = EnemyState.Attack;
@@ -133,12 +133,12 @@ public class RegularEnemy : LivingBeing
         gameObject.transform.eulerAngles = new Vector3(0, (float)roundedRotation, 0);
     }
     
-    public override void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir)
+    public override void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir, OwnerEntity damageCauser)
     {
-        base.TakeDamage(damage, knockbackPower, knockbackDir);
+        base.TakeDamage(damage, knockbackPower, knockbackDir, damageCauser);
         if (hp <= 0)
         {
-            GameController.instance.EnemyDeath(this, scoreWorth);
+            GameController.instance.EnemyDeath(this, damageCauser == OwnerEntity.Player ? scoreWorth : 0);
             GetComponent<CapsuleCollider>().enabled = false;
             _navigator.isStopped = true;
             currentState = EnemyState.Die;
@@ -148,7 +148,7 @@ public class RegularEnemy : LivingBeing
             GameController.instance.HaltScoreDecrease();
         }
     }
-
+    
     protected Transform FindClosestPlayer()
     {
         float minDistance = Vector3.Distance(transform.position, GameController.instance.players[0].transform.position);
@@ -169,6 +169,8 @@ public class RegularEnemy : LivingBeing
     private void ResetPath()
     {
         _navigator.isStopped = false;
-        _navigator.SetDestination(FindClosestPlayer().position);
+        Vector3 playerPosition = FindClosestPlayer().position;
+        playerPosition.y = 0;
+        _navigator.SetDestination(playerPosition);
     }
 }

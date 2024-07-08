@@ -31,7 +31,7 @@ public class RocketBullet : Bullet {
                 float rangeDependentKnockback = Mathf.Lerp(explosionRange, _knockbackPower, distance2Target / explosionRange);
                 float rangeDependentDamage = Mathf.Lerp(_damage, _damage * 0.2f, distance2Target / explosionRange);
                 
-                hitBeing.TakeDamage(rangeDependentDamage, rangeDependentKnockback, new Vector2(dirVector.x, dirVector.z));
+                hitBeing.TakeDamage(rangeDependentDamage, rangeDependentKnockback, new Vector2(dirVector.x, dirVector.z), source);
                 SelfDestruct();
             }
         }

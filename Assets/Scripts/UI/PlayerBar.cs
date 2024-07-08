@@ -19,7 +19,7 @@ public class PlayerBar : MonoBehaviour
         globalRotation = transform.eulerAngles;
     }
     
-    public void Heal(int amount)
+    public void Heal(float amount)
     {
         _currentHealth = Math.Min(maxHealth, _currentHealth + amount);
         UpdateHealthBar();
@@ -36,5 +36,10 @@ public class PlayerBar : MonoBehaviour
         healthBar.transform.localScale = new Vector3(_currentHealth * 1.0f / maxHealth * 1.0f,
                                                       healthBar.transform.localScale.y,
                                                       healthBar.transform.localScale.z);
+    }
+
+    public float GetCurrentHealth()
+    {
+        return _currentHealth;
     }
 }

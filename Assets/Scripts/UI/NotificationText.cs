@@ -15,20 +15,28 @@ public class NotificationText : MonoBehaviour
     private bool _isFading = false;
     private float notificationDissappearTime = 2;
     private float notificationDissappearTimeRecorded;
+    private int nextLetterToPrint = 0;
+    private Timer _caretteTimer;
     
     public void ResetText(string newText, Color textColor)
     {
         notificationDissappearTimeRecorded = 0;
         _isFading = false;
         text = newText;
-        _uiText.text = text;
+        _uiText.text = "_";
         _uiText.color = textColor;
-        Invoke(nameof(StartFading), notificationDissappearStartTime);
+        nextLetterToPrint = 0;
+        Invoke(nameof(PrintLetter), 0.1f);
+        _caretteTimer.Begin();
     }
 
     private void Start()
     {
         text = "";
+        _caretteTimer = gameObject.AddComponent<Timer>();
+        _caretteTimer.waitTime = 0.1f;
+        _caretteTimer.isLooping = true;
+        _caretteTimer.callback = PrintCarette;
     }
 
     void StartFading()
@@ -50,6 +58,34 @@ public class NotificationText : MonoBehaviour
                 _isFading = false;
             }
             _notificatorHolder.TextSocketOpened();
+        }
+    }
+
+    private void PrintLetter()
+    {
+        _uiText.text = _uiText.text.Replace("_", "");
+        _uiText.text += text[nextLetterToPrint];
+        if (nextLetterToPrint + 1 >= text.Length)
+        {
+            Invoke(nameof(StartFading), notificationDissappearStartTime);
+            _caretteTimer.Stop();
+        }
+        else
+        {
+            nextLetterToPrint += 1;
+            Invoke(nameof(PrintLetter), 0.1f);
+        }
+    }
+
+    private void PrintCarette()
+    {
+        if (_uiText.text.Contains("_"))
+        {
+            _uiText.text = _uiText.text.Replace("_", "");   
+        }
+        else
+        {
+            _uiText.text += "_";   
         }
     }
 }

@@ -1,34 +1,29 @@
 using UnityEngine;
 
 
-
 public class Weapon : MonoBehaviour
 {
     public float rateOfFire;
     public float damage;
     public float knockbackPower;
-    public float bulletSpeed;
-    public float maxBulletTravelDistance;
-    
-    [SerializeField]
-    protected bool isReady = false;
-    
+    public OwnerEntity owner = OwnerEntity.Player;
     public bool isReadyToFire = true;
     
     [SerializeField]
-    protected int maxAmmo;
+    protected ParticleSystem _particles;
     [SerializeField]
-    protected int ammo;
-    [SerializeField]
-    protected Bullet bulletPrefab;
-    [SerializeField]
-    protected GameObject spawnPoint;
+    protected bool isReady = false;
     [SerializeField]
     protected string weaponName;
+    [SerializeField]
+    protected GameObject spawnPoint;
     
-    protected void Start()
+    protected virtual void Start()
     {
-        
+        if (_particles)
+        {
+            _particles.Stop();
+        }
     }
 
     public virtual void Fire()
@@ -36,6 +31,10 @@ public class Weapon : MonoBehaviour
         if (isReadyToFire)
         {
             isReadyToFire = false;
+            if (_particles)
+            {
+                _particles.Play();
+            }
             Invoke(nameof(MakeReadyToFire), rateOfFire);
         }
     }
@@ -43,11 +42,10 @@ public class Weapon : MonoBehaviour
     void MakeReadyToFire()
     {
         isReadyToFire = true;
-    }
-    
-    public int GetAmmoCount()
-    {
-        return ammo;
+        if (_particles)
+        {
+            _particles.Stop();
+        }
     }
     
     public string GetWeaponName()
@@ -55,6 +53,18 @@ public class Weapon : MonoBehaviour
         return weaponName;
     }
 
+    public void Activate()
+    {
+        gameObject.SetActive(true);
+        _particles.Stop();
+    }
+    
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
+        _particles.Stop();
+    }
+    
     public bool IsReady()
     {
         return isReady;

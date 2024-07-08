@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class RangedEnemy : RegularEnemy
 {
+    [SerializeField]
+    protected GameObject _supplyDrop;
+    
     public float minShootDistance;
     public float maxShootDistance;
     
@@ -10,7 +13,7 @@ public class RangedEnemy : RegularEnemy
     
     public float minBulletSpeed;
     public float maxBulletSpeed;
-        
+    
 
     protected override void Start()
     {
@@ -22,24 +25,27 @@ public class RangedEnemy : RegularEnemy
     {
         float t = (float)GameController.instance.GetCurrentWave() / GameController.instance.GetMaxWaves();
         _gun = gun;
+        attackDistance = Mathf.Lerp(minShootDistance, maxShootDistance, t);
         
         _gun.ResetSpawnPoint(spawnPoint);
-        if (gun is Gun)
+        Gun cast = _gun as Gun;
+        if (cast)
         {
-            ((Gun)_gun).projectileScaleMultiplier = Mathf.Lerp(minProjectileSize, maxProjectileSize, t);   
+            cast.projectileScaleMultiplier = Mathf.Lerp(minProjectileSize, maxProjectileSize, t);
+            cast.bulletSpeed = Mathf.Lerp(minBulletSpeed, maxBulletSpeed, t);
+            cast.maxBulletTravelDistance = attackDistance;
+            _gun.isReadyToFire = true;
         }
         _gun.rateOfFire = Mathf.Lerp(minFireRate, maxFireRate, t);
         _gun.damage = damage;
         _gun.knockbackPower = Mathf.Lerp(minKnockbackPower, maxKnockbackPower, t);
-        _gun.bulletSpeed = Mathf.Lerp(minBulletSpeed, maxBulletSpeed, t);
-        attackDistance = Mathf.Lerp(minShootDistance, maxShootDistance, t);
-        _gun.maxBulletTravelDistance = attackDistance;
     }
 
     protected override void Attack()
     {
         Transform closestPlayer = FindClosestPlayer();
-        float distance2Player = Vector3.Distance(transform.position, closestPlayer.position);
+        float distance2Player = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
+                                                 new Vector2(closestPlayer.position.x, closestPlayer.position.z));
         if (distance2Player > attackDistance)
         {
             currentState = EnemyState.Chase;
@@ -50,5 +56,18 @@ public class RangedEnemy : RegularEnemy
         SetRotation(gameObject.transform.eulerAngles.y);
         
         _gun.Fire();
+    }
+    
+    public override void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir, OwnerEntity damageCauser)
+    {
+        base.TakeDamage(damage, knockbackPower, knockbackDir, damageCauser);
+        if (hp <= 0 && _supplyDrop)
+        {
+            Vector3 supplyBoxPosition = transform.position;
+            supplyBoxPosition.y = 0;
+            GameObject supplyBox = Instantiate(_supplyDrop, transform.parent);
+
+            supplyBox.transform.position = supplyBoxPosition;
+        }
     }
 }

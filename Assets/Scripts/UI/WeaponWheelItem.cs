@@ -32,7 +32,7 @@ public class WeaponWheelItem : MonoBehaviour
 
     public void DetermineBackground()
     {
-        if (representedWeapon.isReadyToFire)
+        if (representedWeapon.IsReady())
         {
             activeIcon.gameObject.SetActive(true);
             inactiveIcon.gameObject.SetActive(false);
