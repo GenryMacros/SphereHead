@@ -39,5 +39,9 @@ Material:
     m_Floats:
     - _ColorResolution: 6
     - _DitherSpread: 0.1
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ScanningLines: 7
+    - _ScanningLinesSpeed: 0
     m_Colors: []
   m_BuildTextureStacks: []
