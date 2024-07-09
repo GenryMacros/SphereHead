@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 50
-  speed: 5
+  speed: 6
   knockbackRecoverTime: 0.5
   knockbackTimer: {fileID: 489513871074642866}
   currentState: 0

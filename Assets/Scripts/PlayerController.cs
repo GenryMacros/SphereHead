@@ -20,7 +20,8 @@ public class PlayerController : LivingBeing
     private Vector2 _lastInput;
     private bool _isMoving = false;
     private bool _isShooting = false;
-
+    private bool _isReadyToShoot = true;
+    
     protected override void Start()
     {
         base.Start();
@@ -44,7 +45,7 @@ public class PlayerController : LivingBeing
     
     public void OnFire(InputAction.CallbackContext context)
     {
-        _isShooting = context.performed;
+        _isShooting =  context.performed;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -77,6 +78,7 @@ public class PlayerController : LivingBeing
             if (selectedWeapon.IsReady())
             {
                 _newWeapon = selectedWeapon;
+                _isReadyToShoot = false;
                 _animator.SetTrigger("Rearm");
             }
             weaponWheel.Deactivate();
@@ -99,7 +101,7 @@ public class PlayerController : LivingBeing
                 bar.gameObject.transform.rotation = preTransformBarRotation;
             }
 
-            if (_isShooting)
+            if (_isReadyToShoot && _isShooting)
             {
                 activeWeapon.Fire();
             }
@@ -110,9 +112,13 @@ public class PlayerController : LivingBeing
             activeWeapon.gameObject.SetActive(false);
             SwitchWeapon(_newWeapon);
             _newWeapon = null;
+            _isChangingWeapon = false;
+        } else if (!_isChangingWeapon && _animator.GetCurrentAnimatorStateInfo(1).IsName("Armature_Rearm_Back") && _animator.GetCurrentAnimatorStateInfo(1).normalizedTime > 1)
+        {
+            _isReadyToShoot = true;
         }
     }
-
+    
     public override void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir, OwnerEntity damageCauser)
     {
         base.TakeDamage(damage, knockbackPower, knockbackDir, damageCauser);

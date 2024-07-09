@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] 
@@ -13,23 +14,30 @@ public class ScoreManager : MonoBehaviour
     protected Image multiplierForeground;
 
     [SerializeField] 
-    private float multiplierStayTime;
+    private float stayTime;
     [SerializeField] 
-    private float multiplierFadeTime;
+    private float fadeTime;
     [SerializeField] 
     private Timer timer;
     [SerializeField]
     private PlayerUpgrader _upgrader;
     
+    private float _modifiedFadeTime;
+    private float _modifiedStayTime;
+    
+    private float _fadingTime;
     private bool _isFading;
-    private int _currentMultiplier= 1;
+    private int _currentMultiplier = 1;
     private int _currentScore;
+    
     
     void Start()
     {
+        _modifiedStayTime = stayTime;
+        
         multiplierForeground.fillAmount = 0;
         timer.isLooping = false;
-        timer.waitTime = multiplierStayTime;
+        timer.waitTime = _modifiedStayTime;
         timer.callback = StartScoreFading;
         ChangeUiScore();
         ChangeUiMultiplier();
@@ -40,13 +48,15 @@ public class ScoreManager : MonoBehaviour
     {
         if (_isFading)
         {
-            multiplierForeground.fillAmount -= Time.deltaTime * _currentMultiplier;
+            _fadingTime = Math.Min(_fadingTime + Time.deltaTime, _modifiedFadeTime);
+            multiplierForeground.fillAmount = Mathf.Lerp(1.0f, 0.0f, _fadingTime / _modifiedFadeTime);
             if (multiplierForeground.fillAmount <= 0)
             {
                 _currentMultiplier = Math.Max(_currentMultiplier - 1, 1);
                 if (_currentMultiplier != 1)
                 {
                     multiplierForeground.fillAmount = 1.0f;
+                    _fadingTime = 0.0f;
                 }
                 else
                 {
@@ -62,13 +72,13 @@ public class ScoreManager : MonoBehaviour
     void StartScoreFading()
     {
         _isFading = true;
+        _fadingTime = 0.0f;
     }
 
     public void IncrementScore(int increment, bool isMultiplierGrown)
     {
         _isFading = false;
         multiplierForeground.fillAmount = 1.0f;
-        timer.Begin();
         
         try {
             _currentScore = checked (_currentScore + increment * _currentMultiplier);
@@ -82,6 +92,11 @@ public class ScoreManager : MonoBehaviour
         {
             _currentMultiplier = isMultiplierGrown ? _currentMultiplier + 1 : _currentMultiplier;
         }
+
+        _modifiedFadeTime = Mathf.Lerp(fadeTime, 0.5f, _currentMultiplier / 99.0f);
+        _modifiedStayTime = Mathf.Lerp(stayTime, 0.5f, _currentMultiplier / 99.0f);;
+        timer.waitTime = _modifiedStayTime;
+        timer.Begin();
         
         ChangeUiScore();
         ChangeUiMultiplier();
