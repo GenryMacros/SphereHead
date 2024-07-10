@@ -29,6 +29,8 @@ public class RegularEnemy : LivingBeing
     protected Timer pathResetTimer;
     [SerializeField] 
     protected GameObject spawnPoint;
+    [SerializeField]
+    protected Animator _animator;
     
     protected float damage;
     protected Weapon _gun;
@@ -104,6 +106,7 @@ public class RegularEnemy : LivingBeing
             _navigator.isStopped = true;
             _navigator.velocity = Vector3.zero;
             pathResetTimer.Stop();
+            _animator.SetBool("IsShooting", true);
         } else if (pathResetTimer.IsStopped())
         {
             pathResetTimer.Begin();
@@ -119,6 +122,7 @@ public class RegularEnemy : LivingBeing
         {
             currentState = EnemyState.Chase;
             pathResetTimer.Begin();
+            _animator.SetBool("IsShooting",  false);
         }
         
         gameObject.transform.LookAt(closestPlayer);

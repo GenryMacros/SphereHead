@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 4532491625842757404}
   - component: {fileID: 3116382888007733464}
   - component: {fileID: 2633231851769169736}
+  - component: {fileID: 3563524084861407231}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -136,6 +137,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &3563524084861407231
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4142961153267119656}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e4115f2e6cbae464891cd6bc129e33f5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4310561539249783620
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,6 +249,7 @@ MonoBehaviour:
   attackDistance: 2
   pathResetTimer: {fileID: 1427770478788995137}
   spawnPoint: {fileID: 1286484536386765176}
+  _animator: {fileID: 0}
 --- !u!54 &1814280289615526223
 Rigidbody:
   m_ObjectHideFlags: 0

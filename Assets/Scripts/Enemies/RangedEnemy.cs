@@ -50,6 +50,7 @@ public class RangedEnemy : RegularEnemy
         {
             currentState = EnemyState.Chase;
             pathResetTimer.Begin();
+            _animator.SetBool("IsShooting",  false);
         }
         
         gameObject.transform.LookAt(closestPlayer);
