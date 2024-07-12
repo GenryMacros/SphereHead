@@ -7343,7 +7343,7 @@ MonoBehaviour:
   owner: 1
   isReadyToFire: 1
   _particles: {fileID: 1765456168}
-  isReady: 1
+  isReady: 0
   weaponName: Shotgun
   spawnPoint: {fileID: 1588347777}
   maxAmmo: 30
@@ -7447,7 +7447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3c68a34d9abe8c64c9a3925663d9fae9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.245
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3c68a34d9abe8c64c9a3925663d9fae9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13186,7 +13186,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 3.600006}
+  m_AnchoredPosition: {x: 0, y: 3.5999756}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &940083829
@@ -13363,7 +13363,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 50
+  far clip plane: 150
   field of view: 49.200905
   orthographic: 0
   orthographic size: 5
@@ -13688,12 +13688,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rateOfFire: 0.2
-  damage: 1
+  damage: 2
   knockbackPower: 0.1
   owner: 1
   isReadyToFire: 1
   _particles: {fileID: 584958285}
-  isReady: 1
+  isReady: 0
   weaponName: Minigun
   spawnPoint: {fileID: 53556820}
   maxAmmo: 100
@@ -18930,12 +18930,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a5e496583414145b2c50e8fae65f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
+  hp: 50
   speed: 7
   knockbackRecoverTime: 0
+  _animator: {fileID: 1920588785}
   knockbackTimer: {fileID: 57720316}
   activeWeapon: {fileID: 1246163491}
-  _animator: {fileID: 1920588785}
   weaponWheel: {fileID: 2141378231}
   bar: {fileID: 438172331}
 --- !u!4 &1161873861
@@ -19120,7 +19120,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.5
   m_Height: 6.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -19295,7 +19295,7 @@ MonoBehaviour:
   isInfiniteAmmo: 1
   projectileScaleMultiplier: 1
   bulletSpeed: 100
-  maxBulletTravelDistance: 20
+  maxBulletTravelDistance: 15
 --- !u!1 &1276084987
 GameObject:
   m_ObjectHideFlags: 0

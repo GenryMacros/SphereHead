@@ -21,6 +21,12 @@ public class Gun : Weapon
     
     public override void Fire()
     {
+        if (ammo == 0 && !isInfiniteAmmo)
+        {
+            // TODO
+            return;
+        }
+        
         if (isReadyToFire)
         {
             Bullet newBullet = Instantiate(bulletPrefab);

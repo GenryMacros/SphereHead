@@ -24,8 +24,9 @@ public class RangedEnemy : RegularEnemy
     
     public override void SetGun(Weapon gun)
     {
-        float t = (float)GameController.instance.GetCurrentWave() / GameController.instance.GetMaxWaves();
+        float t = (float)(GameController.instance.GetCurrentWave() - 1) / GameController.instance.GetMaxWaves();
         _gun = gun;
+        damage = (int)Mathf.Lerp(minDamage, maxDamage, t);
         attackDistance = Mathf.Lerp(minShootDistance, maxShootDistance, t);
         
         _gun.ResetSpawnPoint(spawnPoint);

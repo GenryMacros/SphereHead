@@ -36,15 +36,15 @@ public class Shotgun : Gun
     
     public override void ApplyUpgrade(Upgrade upgrade)
     {
-        if (!isReadyToFire)
+        if (!isReady)
         {
-            isReadyToFire = true;
+            isReady = true;
             ammo = maxAmmo;
             return;
         }
         
         WeaponUpgrade newUpgrade = upgrade.upgradeParameters[0];
-        rateOfFire += rateOfFire * newUpgrade.rateOfFireChangePercent;
+        rateOfFire -= rateOfFire * newUpgrade.rateOfFireChangePercent;
         damage += damage * newUpgrade.damageChangePercent;
         knockbackPower += knockbackPower * newUpgrade.knockbackPowerChangePercent;
         bulletSpeed += bulletSpeed * newUpgrade.bulletSpeedChangePercent;

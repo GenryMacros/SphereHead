@@ -11,7 +11,7 @@ public enum OwnerEntity
 public class LivingBeing : MonoBehaviour
 {
     [SerializeField]
-    protected float hp;
+    protected int hp;
     [SerializeField]
     protected float speed;
     [SerializeField]
@@ -63,7 +63,7 @@ public class LivingBeing : MonoBehaviour
     
     public virtual void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir, OwnerEntity damageCauser)
     {
-        hp -= damage;
+        hp -= (int)damage;
         _knockbackDir = new Vector3(knockbackDir.x, 0, knockbackDir.y);
         knockbackDistance += knockbackPower;
         canMove = false;

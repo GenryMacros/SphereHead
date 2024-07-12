@@ -235,6 +235,7 @@ MonoBehaviour:
   hp: 10
   speed: 0
   knockbackRecoverTime: 0.5
+  _animator: {fileID: 3563524084861407231}
   knockbackTimer: {fileID: 2148689745208139578}
   currentState: 0
   minDamage: 1
@@ -243,13 +244,12 @@ MonoBehaviour:
   maxFireRate: 0.2
   minKnockbackPower: 1
   maxKnockbackPower: 2
-  maxHp: 0
+  maxHp: 50
   scoreWorth: 100
   _navigator: {fileID: 1435028175812205562}
   attackDistance: 2
   pathResetTimer: {fileID: 1427770478788995137}
   spawnPoint: {fileID: 1286484536386765176}
-  _animator: {fileID: 3563524084861407231}
 --- !u!54 &1814280289615526223
 Rigidbody:
   m_ObjectHideFlags: 0

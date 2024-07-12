@@ -35,7 +35,7 @@ public class Supply : MonoBehaviour
         };
         
         PlayerController[] players = FindObjectsOfType<PlayerController>();
-        List<Weapon> arsenal = players[0].GetArsenal();
+        List<Weapon> arsenal = players[0].GetActiveArsenal();
         
         float meanPlayersHealth = 0.0f;
         float maxPlayerHealth = players[0].GetMaxHP();
@@ -47,11 +47,8 @@ public class Supply : MonoBehaviour
 
         meanPlayersHealth /= players.Length;
 
-        if (meanPlayersHealth <= maxPlayerHealth * 0.5f)
-        {
-            type2ChooseChance[SupplyType.HealthSupply] = Mathf.Lerp(0.3f, 1.0f, meanPlayersHealth / maxPlayerHealth);
-        }
-
+        type2ChooseChance[SupplyType.HealthSupply] = Mathf.Lerp(1.5f, 0.1f, meanPlayersHealth / maxPlayerHealth);
+        
         if (arsenal.Count == 1)
         {
             foreach (PlayerController player in players)
@@ -99,7 +96,8 @@ public class Supply : MonoBehaviour
             SupplyType supplyType = (SupplyType)GetRandomWeightedIndex(new float[]
             {
                 type2ChooseChance[SupplyType.SpecificGunSupply],
-                type2ChooseChance[SupplyType.GunsSupply]
+                type2ChooseChance[SupplyType.GunsSupply],
+                type2ChooseChance[SupplyType.HealthSupply]
             });
 
             switch (supplyType)
@@ -116,6 +114,10 @@ public class Supply : MonoBehaviour
                             cast.ReplenishAmmo((int)(cast.GetMaxAmmo() * gunsSupplyRestorePercent));
                         }
                     }
+                    break;
+                case SupplyType.HealthSupply:
+                    PlayerController player = other.gameObject.GetComponent<PlayerController>();
+                    player.Heal(player.GetMaxHP() * healthRestorePercent);
                     break;
             }
         }

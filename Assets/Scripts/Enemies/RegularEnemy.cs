@@ -18,7 +18,7 @@ public class RegularEnemy : LivingBeing
     public float minKnockbackPower;
     public float maxKnockbackPower;
     
-    public float maxHp;
+    public int maxHp;
     public int scoreWorth;
     
     [SerializeField]
@@ -38,9 +38,10 @@ public class RegularEnemy : LivingBeing
     protected override void Start()
     {
         base.Start();
-        float t = (float)GameController.instance.GetCurrentWave() / GameController.instance.GetMaxWaves();
-        hp = Mathf.Lerp(hp, maxHp, t);
-
+        float t = (float)(GameController.instance.GetCurrentWave() - 1) / GameController.instance.GetMaxWaves();
+        hp = (int)Mathf.Lerp(hp, maxHp, t);
+        damage = (int)Mathf.Lerp(minDamage, maxDamage, t);
+        
         pathResetTimer.waitTime = 2;
         pathResetTimer.isLooping = true;
         pathResetTimer.callback = ResetPath;
@@ -50,7 +51,7 @@ public class RegularEnemy : LivingBeing
     public virtual void SetGun(Weapon gun)
     {
         
-        float t = (float)GameController.instance.GetCurrentWave() / GameController.instance.GetMaxWaves();
+        float t = (float)(GameController.instance.GetCurrentWave() - 1) / GameController.instance.GetMaxWaves();
         _gun = gun;
         damage = Mathf.Lerp(minDamage, maxDamage, t);
         _gun.ResetSpawnPoint(spawnPoint);

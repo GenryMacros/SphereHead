@@ -42,4 +42,10 @@ public class PlayerBar : MonoBehaviour
     {
         return _currentHealth;
     }
+
+    public void ResetMaxHealth(int newMaxHealth)
+    {
+        maxHealth = newMaxHealth;
+        _currentHealth = maxHealth;
+    }
 }

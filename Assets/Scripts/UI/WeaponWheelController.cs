@@ -74,7 +74,7 @@ public class WeaponWheelController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public List<Weapon> GetArsenal()
+    public List<Weapon> GetActiveArsenal()
     {
         List<Weapon> weapons = new List<Weapon>();
         foreach (var piePart in pieParts)
@@ -86,4 +86,15 @@ public class WeaponWheelController : MonoBehaviour
         }
         return weapons;
     }
+    
+    public List<Weapon> GetArsenal()
+    {
+        List<Weapon> weapons = new List<Weapon>();
+        foreach (var piePart in pieParts)
+        {
+            weapons.Add(piePart.representedWeapon);
+        }
+        return weapons;
+    }
+    
 }

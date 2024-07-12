@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : LivingBeing
@@ -39,6 +40,8 @@ public class PlayerController : LivingBeing
                 cast.ammoChanged += AmmoChange;
             }
         }
+
+        bar.ResetMaxHealth(hp);
     }
     
     public void OnFire(InputAction.CallbackContext context)
@@ -163,8 +166,8 @@ public class PlayerController : LivingBeing
         bar.Heal(value);
     }
 
-    public List<Weapon> GetArsenal()
+    public List<Weapon> GetActiveArsenal()
     {
-        return weaponWheel.GetArsenal();
+        return weaponWheel.GetActiveArsenal();
     } 
 }
