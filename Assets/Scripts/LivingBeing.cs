@@ -17,6 +17,8 @@ public class LivingBeing : MonoBehaviour
     [SerializeField]
     protected float knockbackRecoverTime;
     [SerializeField]
+    protected Animator _animator;
+    [SerializeField]
     private Timer knockbackTimer;
     
     protected bool canMove = true;
@@ -65,11 +67,13 @@ public class LivingBeing : MonoBehaviour
         _knockbackDir = new Vector3(knockbackDir.x, 0, knockbackDir.y);
         knockbackDistance += knockbackPower;
         canMove = false;
+        _animator.enabled = false;
         knockbackTimer.Stop();
     }
 
     void KnockbackRecover()
     {
         canMove = true;
+        _animator.enabled = true;
     }
 }

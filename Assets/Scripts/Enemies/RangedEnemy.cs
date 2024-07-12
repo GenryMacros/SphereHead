@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class RangedEnemy : RegularEnemy
@@ -46,6 +47,7 @@ public class RangedEnemy : RegularEnemy
         Transform closestPlayer = FindClosestPlayer();
         float distance2Player = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
                                                  new Vector2(closestPlayer.position.x, closestPlayer.position.z));
+
         if (distance2Player > attackDistance)
         {
             currentState = EnemyState.Chase;
@@ -69,6 +71,9 @@ public class RangedEnemy : RegularEnemy
             GameObject supplyBox = Instantiate(_supplyDrop, transform.parent);
 
             supplyBox.transform.position = supplyBoxPosition;
+            Destroy (gameObject, 3.0f); 
         }
     }
+    
+    
 }

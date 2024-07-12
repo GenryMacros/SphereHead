@@ -9,8 +9,6 @@ public class PlayerController : LivingBeing
     public Weapon activeWeapon;
     
     [SerializeField]
-    protected Animator _animator;
-    [SerializeField]
     protected WeaponWheelController weaponWheel;
     [SerializeField]
     protected PlayerBar bar;

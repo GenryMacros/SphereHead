@@ -29,8 +29,6 @@ public class RegularEnemy : LivingBeing
     protected Timer pathResetTimer;
     [SerializeField] 
     protected GameObject spawnPoint;
-    [SerializeField]
-    protected Animator _animator;
     
     protected float damage;
     protected Weapon _gun;
@@ -100,6 +98,16 @@ public class RegularEnemy : LivingBeing
         Transform closestPlayer = FindClosestPlayer();
         float distance2Player = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
                                                  new Vector2(closestPlayer.position.x, closestPlayer.position.z));
+        
+        if (distance2Player <= attackDistance * 1.5)
+        {
+            _animator.SetBool("IsStartingToShoot",  true);
+        }
+        else
+        {
+            _animator.SetBool("IsStartingToShoot",  false);
+        }
+        
         if (distance2Player <= attackDistance)
         {
             currentState = EnemyState.Attack;
@@ -111,7 +119,6 @@ public class RegularEnemy : LivingBeing
         {
             pathResetTimer.Begin();
         }
-        
     }
 
     protected virtual void Attack()
@@ -142,10 +149,12 @@ public class RegularEnemy : LivingBeing
         base.TakeDamage(damage, knockbackPower, knockbackDir, damageCauser);
         if (hp <= 0)
         {
+            _animator.enabled = true;
             GameController.instance.EnemyDeath(this, damageCauser == OwnerEntity.Player ? scoreWorth : 0);
             GetComponent<CapsuleCollider>().enabled = false;
             _navigator.isStopped = true;
             currentState = EnemyState.Die;
+            _animator.SetBool("IsDead",  true);
         }
         else
         {
