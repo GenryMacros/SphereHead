@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 20
-  speed: 6
+  speed: 8
   knockbackRecoverTime: 0.5
   _animator: {fileID: 4280079891133197489}
   knockbackTimer: {fileID: 489513871074642866}
@@ -160,18 +160,18 @@ MonoBehaviour:
   minKnockbackPower: 1
   maxKnockbackPower: 3
   maxHp: 150
-  scoreWorth: 500
+  scoreWorth: 200
   _navigator: {fileID: 3949252735699192199}
   attackDistance: 0
   pathResetTimer: {fileID: 8384522592884422445}
   spawnPoint: {fileID: 5903697095370942062}
   _supplyDrop: {fileID: 4246947015476685487, guid: 53f8f37162cb12f4ea975ea54aea9c71, type: 3}
-  minShootDistance: 20
-  maxShootDistance: 40
+  minShootDistance: 15
+  maxShootDistance: 25
   minProjectileSize: 1
   maxProjectileSize: 4
   minBulletSpeed: 10
-  maxBulletSpeed: 50
+  maxBulletSpeed: 20
 --- !u!1 &5903697095370942062
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +291,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 3
   m_Acceleration: 2
   avoidancePriority: 50
   m_AngularSpeed: 120

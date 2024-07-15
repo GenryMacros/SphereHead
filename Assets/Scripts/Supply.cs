@@ -30,7 +30,7 @@ public class Supply : MonoBehaviour
         Dictionary<SupplyType, float> type2ChooseChance = new Dictionary<SupplyType, float>()
         {
             {SupplyType.HealthSupply, 0.0f},
-            {SupplyType.SpecificGunSupply, 0.0f},
+            {SupplyType.SpecificGunSupply, 0.1f},
             {SupplyType.GunsSupply, 0.0f},
         };
         
@@ -47,7 +47,7 @@ public class Supply : MonoBehaviour
 
         meanPlayersHealth /= players.Length;
 
-        type2ChooseChance[SupplyType.HealthSupply] = Mathf.Lerp(1.5f, 0.1f, meanPlayersHealth / maxPlayerHealth);
+        type2ChooseChance[SupplyType.HealthSupply] = Mathf.Lerp(1.0f, 0.0f, meanPlayersHealth / maxPlayerHealth);
         
         if (arsenal.Count == 1)
         {
@@ -88,9 +88,9 @@ public class Supply : MonoBehaviour
                 }
             }
 
-            if (currentMinAmmoPercent <= 0.2)
+            if (currentMinAmmoPercent <= 0.3)
             {
-                type2ChooseChance[SupplyType.SpecificGunSupply] = 0.5f;
+                type2ChooseChance[SupplyType.SpecificGunSupply] += 0.5f;
             }
 
             SupplyType supplyType = (SupplyType)GetRandomWeightedIndex(new float[]
@@ -99,11 +99,20 @@ public class Supply : MonoBehaviour
                 type2ChooseChance[SupplyType.GunsSupply],
                 type2ChooseChance[SupplyType.HealthSupply]
             });
-
+            
+            PlayerController player = other.gameObject.GetComponent<PlayerController>();
+            
             switch (supplyType)
             {
                 case SupplyType.SpecificGunSupply:
-                    currentMinGun.ReplenishAmmo((int)(currentMinGun.GetMaxAmmo() * gunSupplyRestorePercent));
+                    if (currentMinGun)
+                    {
+                        currentMinGun.ReplenishAmmo((int)(currentMinGun.GetMaxAmmo() * gunSupplyRestorePercent)); 
+                    }
+                    else
+                    {
+                        player.Heal(player.GetMaxHP() * healthRestorePercent);
+                    }
                     break;
                 case SupplyType.GunsSupply:
                     foreach (Weapon weapon in arsenal)
@@ -116,7 +125,6 @@ public class Supply : MonoBehaviour
                     }
                     break;
                 case SupplyType.HealthSupply:
-                    PlayerController player = other.gameObject.GetComponent<PlayerController>();
                     player.Heal(player.GetMaxHP() * healthRestorePercent);
                     break;
             }

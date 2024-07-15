@@ -17,6 +17,7 @@ public class Gun : Weapon
     public float bulletSpeed;
     public float maxBulletTravelDistance;
     public event Action ammoChanged;
+    public event Action upgradeInstalled;
     
     
     public override void Fire()
@@ -45,6 +46,7 @@ public class Gun : Weapon
 
     public override void ApplyUpgrade(Upgrade upgrade)
     {
+        InvokeUpgradeInstall();
         if (!isReady)
         {
             isReady = true;
@@ -53,11 +55,11 @@ public class Gun : Weapon
         }
         
         WeaponUpgrade newUpgrade = upgrade.upgradeParameters[0];
-        rateOfFire -= rateOfFire * newUpgrade.rateOfFireChangePercent;
-        damage += damage * newUpgrade.damageChangePercent;
-        knockbackPower += knockbackPower * newUpgrade.knockbackPowerChangePercent;
-        bulletSpeed += bulletSpeed * newUpgrade.bulletSpeedChangePercent;
-        maxBulletTravelDistance +=maxBulletTravelDistance * newUpgrade.maxBulletTravelDistanceChangePercent;
+        rateOfFire -= newUpgrade.rateOfFireChange;
+        damage += newUpgrade.damageChange;
+        knockbackPower += newUpgrade.knockbackPowerChange;
+        bulletSpeed += newUpgrade.bulletSpeedChange;
+        maxBulletTravelDistance += newUpgrade.maxBulletTravelDistanceChange;
         maxAmmo += newUpgrade.maxAmmoIncrement;
         
         ammo = maxAmmo;
@@ -82,5 +84,10 @@ public class Gun : Weapon
     public bool IsInfiniteAmmo()
     {
         return isInfiniteAmmo;
+    }
+
+    protected void InvokeUpgradeInstall()
+    {
+        upgradeInstalled?.Invoke();
     }
 }

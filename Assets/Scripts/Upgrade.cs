@@ -10,12 +10,12 @@ public struct UpgradeTree
 [System.Serializable]
 public struct WeaponUpgrade
 {
-    public float rateOfFireChangePercent;
-    public float damageChangePercent;
-    public float knockbackPowerChangePercent;
-    public float bulletSpeedChangePercent;
-    public float maxBulletTravelDistanceChangePercent;  
-    public float spreadConeAngleChangePercent;
+    public float rateOfFireChange;
+    public float damageChange;
+    public float knockbackPowerChange;
+    public float bulletSpeedChange;
+    public float maxBulletTravelDistanceChange;  
+    public float spreadConeAngleChange;
     public int bulletsPerShotChange;
     public int maxAmmoIncrement;
 }

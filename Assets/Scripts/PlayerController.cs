@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +9,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : LivingBeing
 {
     public Weapon activeWeapon;
+    public event Action death;
     
     [SerializeField]
     protected WeaponWheelController weaponWheel;
@@ -88,6 +90,11 @@ public class PlayerController : LivingBeing
 
     void FixedUpdate()
     {
+        if (GameController.instance.IsGamePaused())
+        {
+            return;
+        }
+        
         bool isKnockbacked = ProcessKnockback();
         if (!isKnockbacked && canMove)
         {
@@ -127,7 +134,7 @@ public class PlayerController : LivingBeing
         bar.Damage(damage);
         if (hp <= 0)
         {
-            //TODO
+            death.Invoke();
         }
     }
 

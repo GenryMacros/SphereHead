@@ -12,6 +12,12 @@ public class Shotgun : Gun
 
     public override void Fire()
     {
+        if (ammo == 0 && !isInfiniteAmmo)
+        {
+            // TODO
+            return;
+        }
+        
         if (isReadyToFire)
         {
             float halfSpreadAngle = spreadConeAngle / 2.0f;
@@ -36,6 +42,7 @@ public class Shotgun : Gun
     
     public override void ApplyUpgrade(Upgrade upgrade)
     {
+        InvokeUpgradeInstall();
         if (!isReady)
         {
             isReady = true;
@@ -44,13 +51,13 @@ public class Shotgun : Gun
         }
         
         WeaponUpgrade newUpgrade = upgrade.upgradeParameters[0];
-        rateOfFire -= rateOfFire * newUpgrade.rateOfFireChangePercent;
-        damage += damage * newUpgrade.damageChangePercent;
-        knockbackPower += knockbackPower * newUpgrade.knockbackPowerChangePercent;
-        bulletSpeed += bulletSpeed * newUpgrade.bulletSpeedChangePercent;
-        maxBulletTravelDistance +=maxBulletTravelDistance * newUpgrade.maxBulletTravelDistanceChangePercent;
+        rateOfFire -= newUpgrade.rateOfFireChange;
+        damage += newUpgrade.damageChange;
+        knockbackPower += newUpgrade.knockbackPowerChange;
+        bulletSpeed += newUpgrade.bulletSpeedChange;
+        maxBulletTravelDistance += newUpgrade.maxBulletTravelDistanceChange;
         maxAmmo += newUpgrade.maxAmmoIncrement;
-        spreadConeAngle += spreadConeAngle * newUpgrade.spreadConeAngleChangePercent;
+        spreadConeAngle += newUpgrade.spreadConeAngleChange;
         bulletsPerShot += newUpgrade.bulletsPerShotChange;
         
         ammo = maxAmmo;

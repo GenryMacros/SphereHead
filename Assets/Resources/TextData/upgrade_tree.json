@@ -6,11 +6,11 @@
             "upgradeName": "Pistol DMG",
             "type": 0,
             "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.3,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.0,
-                "maxBulletTravelDistanceChangePercent": 0.0,
+                "rateOfFireChange": 0.0,
+                "damageChange": 2.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 0.0,
                 "maxAmmoIncrement": 0.0
             }]
         },
@@ -20,278 +20,318 @@
             "upgradeName": "Pistol fire rate",
             "type": 0,
             "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.2,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.0,
-                "maxBulletTravelDistanceChangePercent": 0.0,
+                "rateOfFireChange": 0.1,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 0.0,
                 "maxAmmoIncrement": 0.0
+            }]
+        },
+        {
+            "scoreRequired": 1500,
+            "weaponName": "Minigun",
+            "upgradeName": "Minigun unlock",
+            "type": 2,
+            "upgradeParameters": [{
+                "rateOfFireChange": 0.2,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0,
+                "maxBulletTravelDistanceChange": 0,
+                "maxAmmoIncrement": 0
             }]
         },
         {
             "scoreRequired": 2000,
             "weaponName": "Minigun",
-            "upgradeName": "Minigun unlock",
-            "type": 2,
+            "upgradeName": "Minigun DMG",
+            "type": 0,
             "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.2,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0,
-                "maxBulletTravelDistanceChangePercent": 0,
-                "maxAmmoIncrement": 0
+                "rateOfFireChange": 0.0,
+                "damageChange": 1.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.5,
+                "maxBulletTravelDistanceChange": 0.0,
+                "maxAmmoIncrement": 0.0
             }]
         },
         {
             "scoreRequired": 2500,
             "weaponName": "Pistol",
-            "upgradeName": "Pistol bullet speed",
+            "upgradeName": "Pistol distance",
             "type": 0,
             "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.5,
-                "maxBulletTravelDistanceChangePercent": 0.0,
+                "rateOfFireChange": 0.0,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 10.0,
                 "maxAmmoIncrement": 0.0
             }]
         },
         {
             "scoreRequired": 3000,
             "weaponName": "Minigun",
-            "upgradeName": "Minigun bullet speed",
-            "type": 0,
-            "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.5,
-                "maxBulletTravelDistanceChangePercent": 0.0,
-                "maxAmmoIncrement": 0.0
-            }]
-        },
-        {
-            "scoreRequired": 3500,
-            "weaponName": "Minigun",
             "upgradeName": "Minigun fire rate",
             "type": 0,
             "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.3,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.0,
-                "maxBulletTravelDistanceChangePercent": 0.0,
+                "rateOfFireChange": 0.1,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 0.0,
                 "maxAmmoIncrement": 0.0
-            }]
-        },
-        {
-            "scoreRequired": 4000,
-            "weaponName": "Minigun",
-            "upgradeName": "Minigun damage",
-            "type": 0,
-            "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.2,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.0,
-                "maxBulletTravelDistanceChangePercent": 0.0,
-                "maxAmmoIncrement": 0.0
-            }]
-        },
-        {
-            "scoreRequired": 4500,
-            "weaponName": "Shotgun",
-            "upgradeName": "Shotgun unlock",
-            "type": 2,
-            "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.2,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0,
-                "maxBulletTravelDistanceChangePercent": 0,
-                "maxAmmoIncrement": 0,
-                "spreadConeAngleChangePercent": 0.0,
-                "bulletsPerShotChange": 0
-            }]
-        },
-        {
-            "scoreRequired": 5000,
-            "weaponName": "Shotgun",
-            "upgradeName": "Shotgun damage",
-            "type": 0,
-            "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.2,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.0,
-                "maxBulletTravelDistanceChangePercent": 0.0,
-                "maxAmmoIncrement": 0.0,
-                "spreadConeAngleChangePercent": 0.0,
-                "bulletsPerShotChange": 0
-            }]
-        },
-        {
-            "scoreRequired": 5000,
-            "weaponName": "Shotgun",
-            "upgradeName": "Shotgun bullet speed",
-            "type": 0,
-            "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.5,
-                "maxBulletTravelDistanceChangePercent": 0.0,
-                "maxAmmoIncrement": 0.0,
-                "spreadConeAngleChangePercent": 0.0,
-                "bulletsPerShotChange": 0
-            }]
-        },
-        {
-            "scoreRequired": 5500,
-            "weaponName": "Minigun",
-            "upgradeName": "Minigun ammo",
-            "type": 0,
-            "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.0,
-                "maxBulletTravelDistanceChangePercent": 0.0,
-                "maxAmmoIncrement": 100.0
             }]
         },
         {
             "scoreRequired": 6000,
-            "weaponName": "Minigun",
-            "upgradeName": "Minigun ammo",
-            "type": 0,
+            "weaponName": "Shotgun",
+            "upgradeName": "Shotgun unlock",
+            "type": 2,
             "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.0,
-                "maxBulletTravelDistanceChangePercent": 0.0,
-                "maxAmmoIncrement": 100.0
-            }]
-        },
-        {
-            "scoreRequired": 6500,
-            "weaponName": "Pistol",
-            "upgradeName": "Pistol travel distance",
-            "type": 0,
-            "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.3,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.0,
-                "maxBulletTravelDistanceChangePercent": 1.0,
+                "rateOfFireChange": 0.0,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 0.0,
+                "spreadConeAngleChange": 0.0,
                 "maxAmmoIncrement": 0.0
             }]
         },
         {
-            "scoreRequired": 7000,
+            "scoreRequired": 10400,
             "weaponName": "Shotgun",
-            "upgradeName": "Shotgun rapid fire",
+            "upgradeName": "Shotgun knockback power",
             "type": 0,
             "upgradeParameters": [{
-                "rateOfFireChangePercent": 1.0,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.0,
-                "maxBulletTravelDistanceChangePercent": 0.0,
-                "maxAmmoIncrement": 0.0,
-                "spreadConeAngleChangePercent": 0.0,
+                "rateOfFireChange": 0.0,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 3.0,
+                "bulletSpeedChange": 0,
+                "maxBulletTravelDistanceChange": 0,
+                "maxAmmoIncrement": 0,
+                "spreadConeAngleChange": 0.0,
                 "bulletsPerShotChange": 0
             }]
         },
         {
-            "scoreRequired": 7500,
+            "scoreRequired": 14800,
             "weaponName": "Shotgun",
-            "upgradeName": "Shotgun bullets",
+            "upgradeName": "Shotgun fire rate",
             "type": 0,
             "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.0,
-                "maxBulletTravelDistanceChangePercent": 0.0,
+                "rateOfFireChange": 0.2,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 0.0,
                 "maxAmmoIncrement": 0.0,
-                "spreadConeAngleChangePercent": 0.0,
-                "bulletsPerShotChange": 3
-            }]
-        },
-        {
-            "scoreRequired": 8000,
-            "weaponName": "Shotgun",
-            "upgradeName": "Shotgun spread",
-            "type": 0,
-            "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.0,
-                "maxBulletTravelDistanceChangePercent": 0.0,
-                "maxAmmoIncrement": 0.0,
-                "spreadConeAngleChangePercent": -0.4,
+                "spreadConeAngleChange": 0.0,
                 "bulletsPerShotChange": 0
             }]
         },
         {
-            "scoreRequired": 8500,
-            "weaponName": "Shotgun",
-            "upgradeName": "Shotgun ammo",
+            "scoreRequired": 19200,
+            "weaponName": "Minigun",
+            "upgradeName": "Minigun ammo",
             "type": 0,
             "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0.0,
-                "maxBulletTravelDistanceChangePercent": 0.0,
-                "maxAmmoIncrement": 100.0,
-                "spreadConeAngleChangePercent": 0.0,
+                "rateOfFireChange": 0.0,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 0.0,
+                "maxAmmoIncrement": 200,
                 "bulletsPerShotChange": 0
             }]
         },
         {
-            "scoreRequired": 9000,
+            "scoreRequired": 42400,
+            "weaponName": "Pistol",
+            "upgradeName": "Pistol damage",
+            "type": 0,
+            "upgradeParameters": [{
+                "rateOfFireChange": 0.0,
+                "damageChange": 2.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 0.0,
+                "maxAmmoIncrement": 0
+            }]
+        },
+        {
+            "scoreRequired": 60600,
+            "weaponName": "Shotgun",
+            "upgradeName": "Shotgun spread angle",
+            "type": 0,
+            "upgradeParameters": [{
+                "rateOfFireChange": 0.0,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 0.0,
+                "spreadConeAngleChange": 15.0,
+                "maxAmmoIncrement": 0.0
+            }]
+        },
+        {
+            "scoreRequired": 78800,
+            "weaponName": "Pistol",
+            "upgradeName": "Pistol travel distance",
+            "type": 0,
+            "upgradeParameters": [{
+                "rateOfFireChange": 0.0,
+                "damageChange": 0.3,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 1.0,
+                "maxAmmoIncrement": 0.0
+            }]
+        },
+        {
+            "scoreRequired": 115500,
             "weaponName": "Rocket launcher",
             "upgradeName": "Rocket launcher unlock",
             "type": 2,
             "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0,
-                "maxBulletTravelDistanceChangePercent": 0,
-                "maxAmmoIncrement": 0
+                "rateOfFireChange": 0.0,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 0.0,
+                "maxAmmoIncrement": 0.0,
+                "bulletsPerShotChange": 0
             }]
         },
         {
-            "scoreRequired": 9500,
+            "scoreRequired": 150680,
+            "weaponName": "Pistol",
+            "upgradeName": "Pistol awakened...",
+            "type": 2,
+            "upgradeParameters": [{
+                "rateOfFireChange": 0.0,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 0.0,
+                "maxAmmoIncrement": 0.0
+            }]
+        },
+        {
+            "scoreRequired": 186160,
             "weaponName": "Rocket launcher",
-            "upgradeName": "Rocket launcher fire rate",
+            "upgradeName": "Rocket launcher DMG",
             "type": 0,
             "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.3,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0,
-                "maxBulletTravelDistanceChangePercent": 0,
+                "rateOfFireChange": 0.0,
+                "damageChange": 20.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 0.0,
+                "maxAmmoIncrement": 0.0,
+                "bulletsPerShotChange": 0
+            }]
+        },
+        {
+            "scoreRequired": 221640,
+            "weaponName": "Minigun",
+            "upgradeName": "Minigun DMG",
+            "type": 0,
+            "upgradeParameters": [{
+                "rateOfFireChange": 0.0,
+                "damageChange": 2.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0.0,
+                "maxBulletTravelDistanceChange": 0.0,
+                "maxAmmoIncrement": 0.0,
+                "bulletsPerShotChange": 0
+            }]
+        },
+        {
+            "scoreRequired": 257120,
+            "weaponName": "Rocket launcher",
+            "upgradeName": "Rocket launcher DMG",
+            "type": 0,
+            "upgradeParameters": [{
+                "rateOfFireChange": 0.0,
+                "damageChange": 20.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0,
+                "maxBulletTravelDistanceChange": 0,
                 "maxAmmoIncrement": 0
             }]
         },
         {
-            "scoreRequired": 10000,
+            "scoreRequired": 292600,
+            "weaponName": "Shotgun",
+            "upgradeName": "Shotgun DMG",
+            "type": 0,
+            "upgradeParameters": [{
+                "rateOfFireChange": 0.0,
+                "damageChange": 4.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0,
+                "maxBulletTravelDistanceChange": 0,
+                "maxAmmoIncrement": 0
+            }]
+        },
+        {
+            "scoreRequired": 328080,
+            "weaponName": "Minigun",
+            "upgradeName": "Minigun awakened...",
+            "type": 0,
+            "upgradeParameters": [{
+                "rateOfFireChange": 0.05,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0,
+                "maxBulletTravelDistanceChange": 0,
+                "maxAmmoIncrement": 500
+            }]
+        },
+        {
+            "scoreRequired": 363560,
             "weaponName": "Rocket launcher",
+            "upgradeName": "Rocket launcher explosion range",
+            "type": 0,
+            "upgradeParameters": [{
+                "rateOfFireChange": 0.0,
+                "damageChange": 20.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0,
+                "maxBulletTravelDistanceChange": 0,
+                "explosionRangeChange": 2,
+                "maxAmmoIncrement": 0
+            }]
+        },
+        {
+            "scoreRequired": 399040,
+            "weaponName": "Shotgun",
+            "upgradeName": "Shotgun awakened...",
+            "type": 0,
+            "upgradeParameters": [{
+                "rateOfFireChange": 0.0,
+                "damageChange": 0.0,
+                "knockbackPowerChange": 5.0,
+                "bulletSpeedChange": 0,
+                "maxBulletTravelDistanceChange": 0,
+                "spreadConeAngleChange": 30.0,
+                "maxAmmoIncrement": 20
+            }]
+        },
+        {
+            "scoreRequired": 434520,
+            "weaponName": "Rocket launcher DMG",
             "upgradeName": "Rocket launcher ammo",
             "type": 0,
             "upgradeParameters": [{
-                "rateOfFireChangePercent": 0.0,
-                "damageChangePercent": 0.0,
-                "knockbackPowerChangePercent": 0.0,
-                "bulletSpeedChangePercent": 0,
-                "maxBulletTravelDistanceChangePercent": 0,
-                "maxAmmoIncrement": 10
+                "rateOfFireChange": 0.0,
+                "damageChange": 20.0,
+                "knockbackPowerChange": 0.0,
+                "bulletSpeedChange": 0,
+                "maxBulletTravelDistanceChange": 0,
+                "maxAmmoIncrement": 0
             }]
         }
     ]

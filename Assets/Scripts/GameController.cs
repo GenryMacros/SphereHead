@@ -30,6 +30,8 @@ public class GameController : MonoBehaviour
     private float _maxRangedEnemies;
     
     [SerializeField]
+    private DeathScreen deathScreen;
+    [SerializeField]
     private Notificator _notificator;
     [SerializeField]
     private EnemySpawner _spawner;
@@ -43,6 +45,7 @@ public class GameController : MonoBehaviour
     
     private int _enemiesCurrentWave;
     private int _currentWave = 1;
+    private bool _isGamePaused = false;
     
     void Awake()
     {
@@ -52,6 +55,10 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         StartNewWave();
+        foreach (var player in players)
+        {
+            player.death += PlayerDied;
+        }
     }
 
     public int GetCurrentWave()
@@ -102,7 +109,7 @@ public class GameController : MonoBehaviour
 
         task.rangedEnemies = (int)Mathf.Lerp(_minRangedEnemies, _maxRangedEnemies, t);
         task.regularEnemies = (int)Mathf.Lerp(_minRegularEnemies, _maxRegularEnemies, t);
-        task.maxActiveRanged = task.rangedEnemies > 1 ? task.rangedEnemies / 2 : 1;
+        task.maxActiveRanged = task.rangedEnemies > 1 ? task.rangedEnemies / 3 : 1;
         task.maxActiveRegular = task.regularEnemies / 2;
         task.isAllLocationsOpen = _currentWave >= _maxWaves / 2;
         
@@ -110,5 +117,16 @@ public class GameController : MonoBehaviour
         _spawner.AssignTask(task);
         
         _notificator.AppendSpecialNotification($"Wave {_currentWave} start", NotificationType.Enemy);
+    }
+
+    public bool IsGamePaused()
+    {
+        return _isGamePaused;
+    }
+    
+    private void PlayerDied()
+    {
+        _isGamePaused = true;
+        deathScreen.Activate();
     }
 }

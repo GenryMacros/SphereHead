@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,10 @@ public class WeaponWheelController : MonoBehaviour
     public WeaponWheelCenter center;
     public WeaponWheelItem[] pieParts;
     
+    [SerializeField]
+    protected TMP_Text _modulesInstalledText;
+
+    private int _modulesInstalled = 0;
     private int _previousSelection;
     private WeaponWheelItem _menuItemSc;
     private WeaponWheelItem _previousMenuItemSc;
@@ -50,6 +55,7 @@ public class WeaponWheelController : MonoBehaviour
             if (cast)
             {
                 selectedWeaponAmmo = cast.GetAmmoCount();
+                cast.upgradeInstalled += UpgradeInstalled;
             }
             center.ChangeText(selectedWeaponName, selectedWeaponAmmo);
         } 
@@ -63,6 +69,7 @@ public class WeaponWheelController : MonoBehaviour
     public void Activate()
     {
         gameObject.SetActive(true);
+        _modulesInstalledText.text = $"Modules installed: {_modulesInstalled} / 22";
         foreach (WeaponWheelItem part in pieParts)
         {
             part.DetermineBackground();
@@ -97,4 +104,9 @@ public class WeaponWheelController : MonoBehaviour
         return weapons;
     }
     
+    private void UpgradeInstalled()
+    {
+        _modulesInstalled += 1;
+        _modulesInstalledText.text = $"Modules installed: {_modulesInstalled} / 22";
+    }
 }

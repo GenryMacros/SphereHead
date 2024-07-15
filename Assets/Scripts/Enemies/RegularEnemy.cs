@@ -46,6 +46,7 @@ public class RegularEnemy : LivingBeing
         pathResetTimer.isLooping = true;
         pathResetTimer.callback = ResetPath;
         _hitBox = GetComponent<BoxCollider>();
+        ResetPath();
     }
     
     public virtual void SetGun(Weapon gun)
@@ -68,6 +69,11 @@ public class RegularEnemy : LivingBeing
     
     protected virtual void FixedUpdate()
     {
+        if (GameController.instance.IsGamePaused())
+        {
+            return;
+        }
+        
         bool isKnockbacked = ProcessKnockback();
         if (!isKnockbacked && canMove)
         {
@@ -151,7 +157,10 @@ public class RegularEnemy : LivingBeing
         if (hp <= 0)
         {
             _animator.enabled = true;
-            GameController.instance.EnemyDeath(this, damageCauser == OwnerEntity.Player ? scoreWorth : 0);
+            if (currentState != EnemyState.Die)
+            {
+                GameController.instance.EnemyDeath(this, scoreWorth);   
+            }
             GetComponent<CapsuleCollider>().enabled = false;
             _navigator.isStopped = true;
             currentState = EnemyState.Die;

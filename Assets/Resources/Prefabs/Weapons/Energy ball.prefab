@@ -55,7 +55,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   maxAmmo: 0
   ammo: 0
-  bulletPrefab: {fileID: 7222659962651367186, guid: 2fa53c281db9e4141a86722074aa8aab, type: 3}
+  bulletPrefab: {fileID: 4942781845092353521, guid: 2fa53c281db9e4141a86722074aa8aab, type: 3}
   isInfiniteAmmo: 1
   projectileScaleMultiplier: 0
   bulletSpeed: 10

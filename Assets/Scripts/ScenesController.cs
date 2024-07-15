@@ -31,4 +31,9 @@ public class ScenesController : MonoBehaviour
         SceneManager.LoadScene(lvlIndex);
         //transitionAnim.SetTrigger("Start");
     }
+    
+    public void CloseGame()
+    {
+        Application.Quit();
+    }
 }

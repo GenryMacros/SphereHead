@@ -9,14 +9,10 @@ public class PlayerBar : MonoBehaviour
 
     public float maxHealth;
     private float _currentHealth;
-    private Vector3 globalPos;
-    private Vector3 globalRotation;
     
     void Start()
     {
         _currentHealth = maxHealth;
-        globalPos = transform.position;
-        globalRotation = transform.eulerAngles;
     }
     
     public void Heal(float amount)

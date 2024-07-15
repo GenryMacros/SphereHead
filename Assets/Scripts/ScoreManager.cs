@@ -16,7 +16,11 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] 
     private float stayTime;
     [SerializeField] 
+    private float stayTimeMin;
+    [SerializeField] 
     private float fadeTime;
+    [SerializeField] 
+    private float fadeTimeMin;
     [SerializeField] 
     private Timer timer;
     [SerializeField]
@@ -93,8 +97,8 @@ public class ScoreManager : MonoBehaviour
             _currentMultiplier = isMultiplierGrown ? _currentMultiplier + 1 : _currentMultiplier;
         }
 
-        _modifiedFadeTime = Mathf.Lerp(fadeTime, 0.5f, _currentMultiplier / 99.0f);
-        _modifiedStayTime = Mathf.Lerp(stayTime, 0.5f, _currentMultiplier / 99.0f);;
+        _modifiedFadeTime = Mathf.Lerp(fadeTime, fadeTimeMin, _currentMultiplier / 99.0f);
+        _modifiedStayTime = Mathf.Lerp(stayTime, stayTimeMin, _currentMultiplier / 99.0f);
         timer.waitTime = _modifiedStayTime;
         timer.Begin();
         
