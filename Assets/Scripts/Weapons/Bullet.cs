@@ -38,7 +38,7 @@ public class Bullet : MonoBehaviour
         }
     }
     
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         Vector2 velocity = _speed * Time.deltaTime * _direction;
         transform.Translate(new Vector3(velocity.x, 0, velocity.y));
@@ -53,6 +53,11 @@ public class Bullet : MonoBehaviour
     
     protected virtual void OnTriggerEnter(Collider other)
     {
+        if (source == OwnerEntity.Enemy && gameObject.CompareTag("boss"))
+        {
+            return;
+        }
+        
         LivingBeing hitBeing = other.gameObject.GetComponent<LivingBeing>();
         if (hitBeing)
         {

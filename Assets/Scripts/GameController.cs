@@ -9,6 +9,7 @@ public struct SpawnTask
     public int maxActiveRanged;
     public int maxActiveRegular;
     public bool isAllLocationsOpen;
+    public bool isBossTask;
 }
 
 
@@ -19,6 +20,7 @@ public class GameController : MonoBehaviour
     public static GameController instance;
     public int activeRegularEnemies;
     public int activeRangeEnemies;
+    public bool isBossAlive = false;
     
     [SerializeField]
     private float _minRegularEnemies;
@@ -73,7 +75,12 @@ public class GameController : MonoBehaviour
     
     public void EnemyDeath(LivingBeing deadEnemy, int scoreWorth)
     {
-        if (deadEnemy is RangedEnemy)
+        if (deadEnemy is Boss)
+        {
+            BossDied();
+            return;
+        }
+        else if (deadEnemy is RangedEnemy)
         {
             activeRangeEnemies -= 1;
         }
@@ -105,15 +112,22 @@ public class GameController : MonoBehaviour
     private void StartNewWave()
     {
         SpawnTask task = new SpawnTask();
-        float t = (float)(_currentWave - 1) / _maxWaves;
-
-        task.rangedEnemies = (int)Mathf.Lerp(_minRangedEnemies, _maxRangedEnemies, t);
-        task.regularEnemies = (int)Mathf.Lerp(_minRegularEnemies, _maxRegularEnemies, t);
-        task.maxActiveRanged = task.rangedEnemies > 1 ? task.rangedEnemies / 3 : 1;
-        task.maxActiveRegular = task.regularEnemies / 2;
-        task.isAllLocationsOpen = _currentWave >= _maxWaves / 2;
+        if (_currentWave == 7)
+        {
+            task.isBossTask = true;
+        }
+        else
+        {
+            float t = (float)(_currentWave - 1) / _maxWaves;
         
-        _enemiesCurrentWave = task.rangedEnemies + task.regularEnemies;
+            task.rangedEnemies = (int)Mathf.Lerp(_minRangedEnemies, _maxRangedEnemies, t);
+            task.regularEnemies = (int)Mathf.Lerp(_minRegularEnemies, _maxRegularEnemies, t);
+            task.maxActiveRanged = task.rangedEnemies > 1 ? task.rangedEnemies / 3 : 1;
+            task.maxActiveRegular = task.regularEnemies / 2;
+            task.isAllLocationsOpen = _currentWave >= _maxWaves / 2;
+        
+            _enemiesCurrentWave = task.rangedEnemies + task.regularEnemies;   
+        }
         _spawner.AssignTask(task);
         
         _notificator.AppendSpecialNotification($"Wave {_currentWave} start", NotificationType.Enemy);
@@ -128,5 +142,10 @@ public class GameController : MonoBehaviour
     {
         _isGamePaused = true;
         deathScreen.Activate();
+    }
+
+    private void BossDied()
+    {
+        Debug.Log("Boss died");
     }
 }

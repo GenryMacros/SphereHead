@@ -57,6 +57,6 @@ MonoBehaviour:
   ammo: 0
   bulletPrefab: {fileID: 4942781845092353521, guid: 2fa53c281db9e4141a86722074aa8aab, type: 3}
   isInfiniteAmmo: 1
-  projectileScaleMultiplier: 0
-  bulletSpeed: 10
-  maxBulletTravelDistance: 10
+  projectileScaleMultiplier: 5
+  bulletSpeed: 15
+  maxBulletTravelDistance: 50

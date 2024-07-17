@@ -18,6 +18,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] 
     private RangedEnemy rangedPrefab;
     [SerializeField] 
+    private Boss bossPrefab;
+    [SerializeField] 
     private Gun rangedEnemyGun;
     
     [SerializeField] 
@@ -32,6 +34,21 @@ public class EnemySpawner : MonoBehaviour
     
     private void Spawn()
     {
+        if (_currentTask.isBossTask)
+        {
+            if (!GameController.instance.isBossAlive)
+            {
+                Boss boss = Instantiate(bossPrefab, transform);
+                boss.transform.position = new Vector3(0, 8, 0);
+                boss.transform.eulerAngles = Vector3.zero;
+                boss.Activate();
+                GameController.instance.isBossAlive = true;
+            }
+            else
+            {
+                return;
+            }
+        }
         int enemiesLeft = _currentTask.rangedEnemies + _currentTask.regularEnemies;
         if (enemiesLeft > 0)
         {
@@ -46,10 +63,11 @@ public class EnemySpawner : MonoBehaviour
             {
                 Vector3 position = SelectedRandomPosition(true);
                 RangedEnemy newRanged = Instantiate(rangedPrefab, transform);
-                Gun newGun = Instantiate(rangedEnemyGun, newRanged.transform);
+                newRanged.transform.position = position;
+                
+                Gun newGun = Instantiate(rangedEnemyGun, newRanged.gameObject.transform);
 
                 newRanged.SetGun(newGun);
-                newRanged.transform.position = position;
                 
                 _currentTask.rangedEnemies -= 1;
                 GameController.instance.activeRangeEnemies += 1;

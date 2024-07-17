@@ -39,7 +39,7 @@ public class Weapon : MonoBehaviour
         }
     }
     
-    void MakeReadyToFire()
+    protected void MakeReadyToFire()
     {
         isReadyToFire = true;
         if (_particles)

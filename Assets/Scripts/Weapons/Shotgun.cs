@@ -26,7 +26,7 @@ public class Shotgun : Gun
             {
                 float angle = (-halfSpreadAngle + angleStep * i) * (MathF.PI/180);
                 Vector3 forwardVector = transform.forward;
-               
+                
                 double dirX = forwardVector.x * Math.Cos(angle) - forwardVector.z * Math.Sin(angle);
                 double dirY = forwardVector.x * Math.Sin(angle) + forwardVector.z * Math.Cos(angle);
                 

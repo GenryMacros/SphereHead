@@ -152,6 +152,7 @@ MonoBehaviour:
   knockbackRecoverTime: 0.5
   _animator: {fileID: 4280079891133197489}
   knockbackTimer: {fileID: 489513871074642866}
+  isImmuneToKnockback: 0
   currentState: 0
   minDamage: 5
   maxDamage: 15

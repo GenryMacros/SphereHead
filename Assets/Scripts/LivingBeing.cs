@@ -21,6 +21,8 @@ public class LivingBeing : MonoBehaviour
     [SerializeField]
     private Timer knockbackTimer;
     
+    [SerializeField]
+    protected bool isImmuneToKnockback = true;
     protected bool canMove = true;
     
     private float knockbackDistance;
@@ -36,7 +38,7 @@ public class LivingBeing : MonoBehaviour
     
     protected bool ProcessKnockback()
     {
-        if (knockbackDistance <= 0)
+        if (knockbackDistance <= 0 || isImmuneToKnockback)
         {
             knockbackDistance = 0;
             return false;
@@ -70,7 +72,7 @@ public class LivingBeing : MonoBehaviour
         _animator.enabled = false;
         knockbackTimer.Stop();
     }
-
+    
     void KnockbackRecover()
     {
         canMove = true;

@@ -24425,6 +24425,7 @@ MonoBehaviour:
   knockbackRecoverTime: 0
   _animator: {fileID: 1920588785}
   knockbackTimer: {fileID: 57720316}
+  isImmuneToKnockback: 0
   activeWeapon: {fileID: 1246163491}
   weaponWheel: {fileID: 2141378231}
   bar: {fileID: 438172331}
@@ -32317,6 +32318,7 @@ MonoBehaviour:
   - {fileID: 1161873860}
   activeRegularEnemies: 0
   activeRangeEnemies: 0
+  isBossAlive: 0
   _minRegularEnemies: 2
   _maxRegularEnemies: 100
   _minRangedEnemies: 1
@@ -32365,6 +32367,7 @@ MonoBehaviour:
   - {fileID: 1104065564}
   regularPrefab: {fileID: 5218067767808340748, guid: 89757e283fc98c74ca1364b4ae2d06e4, type: 3}
   rangedPrefab: {fileID: 4105400376239879463, guid: 4749f35d26879d84db441f4dba65fdc7, type: 3}
+  bossPrefab: {fileID: 8504767559192704222, guid: b1880e5c473630d44963b816cbb1f739, type: 3}
   rangedEnemyGun: {fileID: 2721104356278127612, guid: 0c050cb3bf2ed934da903fdbe4f24c47, type: 3}
   meleeEnemyWeapon: {fileID: 5283946278611986188, guid: 5007b13df72823f41acaca2d775dc16b, type: 3}
 --- !u!4 &2052841414
