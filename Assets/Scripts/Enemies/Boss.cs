@@ -3,7 +3,7 @@ using UnityEngine;
 public class Boss : LivingBeing
 {
     
-    public enum BossState {ZoneAttack, LaserAttack, CircularAttack, None};
+    public enum BossState {ZoneAttack, LaserAttack, CircularAttack, None, Dead};
     public BossState currentState = BossState.None;
     public PlayerController player;
     
@@ -67,7 +67,7 @@ public class Boss : LivingBeing
     
     protected virtual void FixedUpdate()
     {
-        if (GameController.instance.IsGamePaused())
+        if (GameController.instance.IsGamePaused() || currentState == BossState.Dead)
         {
             return;
         }
@@ -171,4 +171,15 @@ public class Boss : LivingBeing
     {
         _isCircularReady = true;
     }
+    
+     public override void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir, OwnerEntity damageCauser)
+        {
+            base.TakeDamage(damage, knockbackPower, knockbackDir, damageCauser);
+
+            if (hp <= 0)
+            {
+                currentState = BossState.Dead;
+                Destroy(gameObject, 5.0f);
+            }
+        }
 }

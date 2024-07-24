@@ -39,7 +39,10 @@ public class RocketBullet : Bullet {
                         new Vector2(dirVector.x, dirVector.z), source);
                 }
             }
-            SelfDestruct();
+
+            _speed = 0;
+            _destructionParticles.Play();
+            Destroy(gameObject, 0.7f);
         }
     }
 }
