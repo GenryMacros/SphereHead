@@ -132,7 +132,7 @@ public class PlayerController : LivingBeing
         base.TakeDamage(damage, knockbackPower, knockbackDir, damageCauser);
 
         bar.Damage(damage);
-        if (hp <= 0)
+        if (bar.GetCurrentHealth() <= 0)
         {
             death.Invoke();
         }

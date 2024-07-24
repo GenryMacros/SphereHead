@@ -165,6 +165,7 @@ public class RegularEnemy : LivingBeing
             _navigator.isStopped = true;
             currentState = EnemyState.Die;
             _animator.SetBool("IsDead",  true);
+            Destroy (gameObject, 3.0f); 
         }
         else
         {
