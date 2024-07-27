@@ -17,6 +17,8 @@ public class Weapon : MonoBehaviour
     protected string weaponName;
     [SerializeField]
     protected GameObject spawnPoint;
+
+    private int _upgradesInstalled;
     
     protected virtual void Start()
     {
@@ -53,6 +55,11 @@ public class Weapon : MonoBehaviour
         return weaponName;
     }
 
+    public int GetInstalledUpgrades()
+    {
+        return _upgradesInstalled;
+    }
+    
     public void Activate()
     {
         gameObject.SetActive(true);
@@ -72,7 +79,7 @@ public class Weapon : MonoBehaviour
     
     public virtual void ApplyUpgrade(Upgrade upgrade)
     {
-        
+        _upgradesInstalled += 1;
     }
     
     public virtual void ResetSpawnPoint(GameObject newSpawnPoint)

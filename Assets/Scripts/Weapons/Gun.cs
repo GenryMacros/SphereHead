@@ -17,7 +17,6 @@ public class Gun : Weapon
     public float bulletSpeed;
     public float maxBulletTravelDistance;
     public event Action ammoChanged;
-    public event Action upgradeInstalled;
     
     
     public override void Fire()
@@ -46,7 +45,7 @@ public class Gun : Weapon
 
     public override void ApplyUpgrade(Upgrade upgrade)
     {
-        InvokeUpgradeInstall();
+        base.ApplyUpgrade(upgrade);
         if (!isReady)
         {
             isReady = true;
@@ -86,8 +85,4 @@ public class Gun : Weapon
         return isInfiniteAmmo;
     }
 
-    protected void InvokeUpgradeInstall()
-    {
-        upgradeInstalled?.Invoke();
-    }
 }

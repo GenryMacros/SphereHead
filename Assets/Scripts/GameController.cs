@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 
 public struct SpawnTask
@@ -21,6 +22,20 @@ public class GameController : MonoBehaviour
     public int activeRegularEnemies;
     public int activeRangeEnemies;
     public bool isBossAlive = false;
+    
+    [SerializeField] 
+    private Material _changingMaterial;
+    [SerializeField] 
+    private Material _noiseMaterial;
+
+    [SerializeField] 
+    private float _startNoise = 0.001f;
+    [SerializeField] 
+    private float _endNoise = 0.02f;
+    [SerializeField] 
+    private Color _changingMaterialInitialColor;
+    [SerializeField] 
+    private Color _changingMaterialEndColor;
     
     [SerializeField]
     private float _minRegularEnemies;
@@ -61,6 +76,8 @@ public class GameController : MonoBehaviour
         {
             player.death += PlayerDied;
         }
+        _changingMaterial.SetColor("_EmissionColor", _changingMaterialInitialColor);
+        _noiseMaterial.SetFloat("_noise_amount", 0.0f);
     }
 
     public int GetCurrentWave()
@@ -106,6 +123,16 @@ public class GameController : MonoBehaviour
     private void WaveCleared()
     {
         _currentWave += 1;
+        
+        Color newMaterialColor = Color.Lerp(_changingMaterialInitialColor, _changingMaterialEndColor, _currentWave / 7.0f);
+        _changingMaterial.SetColor("_EmissionColor", newMaterialColor);
+
+        if (_currentWave >= 2)
+        {
+            float newNoise = Mathf.Lerp(_startNoise, _endNoise, (3.0f - (7 - _currentWave)) / 3.0f);
+            _noiseMaterial.SetFloat("_noise_amount", newNoise);
+        }
+        
         Invoke(nameof(StartNewWave), timeBetweenWaves);
     }
 

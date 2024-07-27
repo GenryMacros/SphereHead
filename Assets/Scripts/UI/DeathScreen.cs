@@ -9,6 +9,7 @@ public class DeathScreen : MonoBehaviour
     
     private Timer _flickerTimer;
     private bool _inTransition = false;
+    private bool _isAcceptingInput = false;
     
     public void Activate()
     {
@@ -21,6 +22,7 @@ public class DeathScreen : MonoBehaviour
         }
         gameObject.SetActive(true);
         _flickerTimer.Begin();
+        Invoke(nameof(StartAcceptInput), 0.5f);
     }
     
     private void FlickerText()
@@ -38,10 +40,15 @@ public class DeathScreen : MonoBehaviour
 
     private void Update()
     {
-       if (Input.anyKey && !_inTransition)
+       if (Input.anyKey && !_inTransition && _isAcceptingInput)
        { 
            ScenesController.instance.ToMainMenu();
            _inTransition = true;
        }
+    }
+
+    private void StartAcceptInput()
+    {
+        _isAcceptingInput = true;
     }
 }

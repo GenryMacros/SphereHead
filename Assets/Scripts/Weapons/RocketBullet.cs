@@ -41,6 +41,7 @@ public class RocketBullet : Bullet {
             }
 
             _speed = 0;
+            _bulletBody.SetActive(false);
             _destructionParticles.Play();
             Destroy(gameObject, 0.7f);
         }

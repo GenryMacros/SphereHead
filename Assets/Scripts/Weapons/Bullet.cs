@@ -10,6 +10,9 @@ public class Bullet : MonoBehaviour
     
     [SerializeField]
     protected ParticleSystem _destructionParticles;
+
+    [SerializeField] 
+    protected GameObject _bulletBody;
     
     protected Vector2 _direction = Vector2.zero;
     protected float _speed = 0;
@@ -69,6 +72,7 @@ public class Bullet : MonoBehaviour
             if (_destructionParticles)
             {
                 _destructionParticles.Play();
+                _bulletBody.SetActive(false);
                 StartCoroutine(DestructWithTimeout());
             }
             else

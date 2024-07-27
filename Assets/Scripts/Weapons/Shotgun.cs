@@ -42,7 +42,7 @@ public class Shotgun : Gun
     
     public override void ApplyUpgrade(Upgrade upgrade)
     {
-        InvokeUpgradeInstall();
+        base.ApplyUpgrade(upgrade);
         if (!isReady)
         {
             isReady = true;
@@ -51,15 +51,8 @@ public class Shotgun : Gun
         }
         
         WeaponUpgrade newUpgrade = upgrade.upgradeParameters[0];
-        rateOfFire -= newUpgrade.rateOfFireChange;
-        damage += newUpgrade.damageChange;
-        knockbackPower += newUpgrade.knockbackPowerChange;
-        bulletSpeed += newUpgrade.bulletSpeedChange;
-        maxBulletTravelDistance += newUpgrade.maxBulletTravelDistanceChange;
-        maxAmmo += newUpgrade.maxAmmoIncrement;
         spreadConeAngle += newUpgrade.spreadConeAngleChange;
         bulletsPerShot += newUpgrade.bulletsPerShotChange;
         
-        ammo = maxAmmo;
     }
 }

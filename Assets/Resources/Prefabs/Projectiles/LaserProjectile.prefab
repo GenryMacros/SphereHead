@@ -156,6 +156,7 @@ MonoBehaviour:
   _knockbackPower: 0
   source: 1
   _destructionParticles: {fileID: 0}
+  _bulletBody: {fileID: 1046483176830923396}
 --- !u!135 &5090247990609641744
 SphereCollider:
   m_ObjectHideFlags: 0
