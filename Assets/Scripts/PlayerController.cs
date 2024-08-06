@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 
 [RequireComponent(typeof(CapsuleCollider))]
@@ -15,7 +16,9 @@ public class PlayerController : LivingBeing
     protected WeaponWheelController weaponWheel;
     [SerializeField]
     protected PlayerBar bar;
-
+    [SerializeField] 
+    private PopUpMessagesController _messageController;
+    
     private Weapon _newWeapon = null;
     private bool _isChangingWeapon = false;
     private Vector2 _lastInput;
@@ -132,6 +135,14 @@ public class PlayerController : LivingBeing
         base.TakeDamage(damage, knockbackPower, knockbackDir, damageCauser);
 
         bar.Damage(damage);
+
+        int currentWave = GameController.instance.GetCurrentWave();
+        float randomVal = Random.Range(0.0f, 1.0f);
+        if (currentWave >= 4 && bar.GetCurrentHealth() < bar.maxHealth * 0.5f && randomVal < 0.4f)
+        {
+            _messageController.SpawnMessage();    
+        }
+        
         if (bar.GetCurrentHealth() <= 0)
         {
             death.Invoke();

@@ -63,6 +63,12 @@ public class GameController : MonoBehaviour
     private int _enemiesCurrentWave;
     private int _currentWave = 1;
     private bool _isGamePaused = false;
+
+    private float _totalEnemiesCurrentWave;
+    private float _lastNoiseTarget;
+    private float _noiseTarget;
+    private Color _lastColorTarget;
+    private Color _colorTarget;
     
     void Awake()
     {
@@ -78,6 +84,11 @@ public class GameController : MonoBehaviour
         }
         _changingMaterial.SetColor("_EmissionColor", _changingMaterialInitialColor);
         _noiseMaterial.SetFloat("_noise_amount", 0.0f);
+
+        _colorTarget = _changingMaterialInitialColor;
+        _noiseTarget = 0.0f;
+        
+        ChangeShadersTarget();
     }
 
     public int GetCurrentWave()
@@ -105,14 +116,19 @@ public class GameController : MonoBehaviour
         {
             activeRegularEnemies -= 1;
         }
-
         _enemiesCurrentWave -= 1;
+        float enemyT = (_totalEnemiesCurrentWave - _enemiesCurrentWave) / _totalEnemiesCurrentWave;
+
+        _noiseMaterial.SetFloat("_noise_amount",
+            Mathf.Lerp(_lastNoiseTarget, _noiseTarget, enemyT));
+        _changingMaterial.SetColor("_EmissionColor", 
+            Color.Lerp(_lastColorTarget, _colorTarget, enemyT));
+        
+        _scoreManager.IncrementScore(scoreWorth, true);
         if (_enemiesCurrentWave <= 0)
         {
             WaveCleared();
         }
-
-        _scoreManager.IncrementScore(scoreWorth, true);
     }
 
     public void HaltScoreDecrease()
@@ -124,18 +140,29 @@ public class GameController : MonoBehaviour
     {
         _currentWave += 1;
         
-        Color newMaterialColor = Color.Lerp(_changingMaterialInitialColor, _changingMaterialEndColor, _currentWave / 7.0f);
-        _changingMaterial.SetColor("_EmissionColor", newMaterialColor);
-
-        if (_currentWave >= 2)
-        {
-            float newNoise = Mathf.Lerp(_startNoise, _endNoise, (3.0f - (7 - _currentWave)) / 3.0f);
-            _noiseMaterial.SetFloat("_noise_amount", newNoise);
-        }
+        ChangeShadersTarget();
         
         Invoke(nameof(StartNewWave), timeBetweenWaves);
     }
 
+    private void ChangeShadersTarget()
+    {
+        if (_currentWave == 7)
+        {
+            _lastColorTarget = _colorTarget;
+            _lastNoiseTarget = _noiseTarget;
+            return;
+        }
+        _lastColorTarget = new Color(_colorTarget.r, _colorTarget.g, _colorTarget.b);
+        _colorTarget = Color.Lerp(_changingMaterialInitialColor, _changingMaterialEndColor, (_currentWave + 1) / 7.0f);
+        
+        if (_currentWave >= 2)
+        {
+            _lastNoiseTarget = _noiseTarget;
+            _noiseTarget =  Mathf.Lerp(_startNoise, _endNoise, (3.0f - (7 - (_currentWave + 1))) / 3.0f);
+        }
+    }
+    
     private void StartNewWave()
     {
         SpawnTask task = new SpawnTask();
@@ -153,7 +180,8 @@ public class GameController : MonoBehaviour
             task.maxActiveRegular = task.regularEnemies / 2;
             task.isAllLocationsOpen = _currentWave >= _maxWaves / 2;
         
-            _enemiesCurrentWave = task.rangedEnemies + task.regularEnemies;   
+            _enemiesCurrentWave = task.rangedEnemies + task.regularEnemies;
+            _totalEnemiesCurrentWave = _enemiesCurrentWave;
         }
         _spawner.AssignTask(task);
         

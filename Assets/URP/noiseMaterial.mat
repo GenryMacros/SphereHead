@@ -37,6 +37,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _noise_amount: 0.01
+    - _noise_amount: 0.001
     m_Colors: []
   m_BuildTextureStacks: []
