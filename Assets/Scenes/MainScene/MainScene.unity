@@ -24719,6 +24719,7 @@ MonoBehaviour:
   knockbackTimer: {fileID: 57720316}
   isImmuneToKnockback: 0
   activeWeapon: {fileID: 1246163491}
+  isAbleToMove: 1
   weaponWheel: {fileID: 2141378231}
   bar: {fileID: 438172331}
   _messageController: {fileID: 1934986113}
@@ -32844,8 +32845,11 @@ MonoBehaviour:
   isBossAlive: 0
   _changingMaterial: {fileID: 2100000, guid: fa1f1413863e9974b9593a51947848b7, type: 2}
   _noiseMaterial: {fileID: 2100000, guid: a385fce98acbc2c45bce02caf58e769f, type: 2}
+  _bossWave: 7
   _startNoise: 0.001
   _endNoise: 0.02
+  _transitionNoise: 0.05
+  _transitionNoiseTime: 10
   _changingMaterialInitialColor: {r: 0.3019608, g: 0.29411766, b: 0.7490196, a: 1}
   _changingMaterialEndColor: {r: 0.30980393, g: 0, b: 0, a: 0}
   _minRegularEnemies: 2

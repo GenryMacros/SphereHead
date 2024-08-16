@@ -180,6 +180,7 @@ public class Boss : LivingBeing
             {
                 currentState = BossState.Dead;
                 Destroy(gameObject, 5.0f);
+                GameController.instance.EnemyDeath(this, int.MaxValue); 
             }
         }
 }

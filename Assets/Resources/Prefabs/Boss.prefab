@@ -793,7 +793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4819034311818139204, guid: 409812e812d609a43aabed3eebed85b6, type: 3}
       propertyPath: knockbackPower
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9213494459120820404, guid: 409812e812d609a43aabed3eebed85b6, type: 3}
       propertyPath: m_Name

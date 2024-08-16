@@ -21,8 +21,6 @@ public class PlayerControllerEndScene : MonoBehaviour
     {
         Vector2 input = context.ReadValue<Vector2>();
         _cam.UpdateRotation(new Vector2(input.x, input.y) * _camRotateSpeed);
-        Debug.Log(input);
-        
     }
     
 }

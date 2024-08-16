@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+
 
 public class OpeningDoor : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class OpeningDoor : MonoBehaviour
     private bool _isOpening = false;
     private float _timePassedSinceOpen;
     
+    public Action activateCallback;
     
     void Start()
     {
@@ -27,6 +30,11 @@ public class OpeningDoor : MonoBehaviour
             float newY = Mathf.Lerp(0.0f, _openAngle, _timePassedSinceOpen / _openTime);
             Vector3 currentRotation = gameObject.transform.eulerAngles;
             gameObject.transform.eulerAngles = new Vector3(currentRotation.x, newY, currentRotation.z);
+
+            if (_timePassedSinceOpen >= _openTime)
+            {
+                activateCallback?.Invoke();
+            }
         }
     }
 

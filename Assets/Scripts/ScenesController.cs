@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,7 +22,12 @@ public class ScenesController : MonoBehaviour
     {
         StartCoroutine(LoadLevel(1));
     }
-
+    
+    public void ToEnd()
+    {
+        StartCoroutine(LoadLevel(2));
+    }
+    
     IEnumerator LoadLevel(int lvlIndex)
     {
         //transitionAnim.SetTrigger("End");

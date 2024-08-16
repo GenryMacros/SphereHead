@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -19,6 +20,8 @@ public class IntensifiedLight : MonoBehaviour
     private float _startArea;
     private float _startIntensity;
     
+    public Action activateCallback;
+    
     void Start()
     {
         Invoke(nameof(StartIntense), _timeStart);
@@ -35,6 +38,11 @@ public class IntensifiedLight : MonoBehaviour
             float t = _timePassedSinceOpen / _intensifyTime;
             _light.range = Mathf.Lerp(_startArea, _endArea, t);
             _light.intensity = Mathf.Lerp(_startIntensity, _endIntensity, t);
+
+            if (_timePassedSinceOpen >= _intensifyTime)
+            {
+                activateCallback?.Invoke();
+            }
         }
     }
     

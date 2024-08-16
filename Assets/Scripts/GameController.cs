@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 
 public struct SpawnTask
@@ -27,11 +27,17 @@ public class GameController : MonoBehaviour
     private Material _changingMaterial;
     [SerializeField] 
     private Material _noiseMaterial;
-
+    
+    [SerializeField] 
+    private int _bossWave = 7;
     [SerializeField] 
     private float _startNoise = 0.001f;
     [SerializeField] 
     private float _endNoise = 0.02f;
+    [SerializeField] 
+    private float _transitionNoise = 0.05f;
+    [SerializeField] 
+    private float _transitionNoiseTime;
     [SerializeField] 
     private Color _changingMaterialInitialColor;
     [SerializeField] 
@@ -63,10 +69,12 @@ public class GameController : MonoBehaviour
     private int _enemiesCurrentWave;
     private int _currentWave = 1;
     private bool _isGamePaused = false;
-
+    private bool _isGameEnded = false;
+    
     private float _totalEnemiesCurrentWave;
     private float _lastNoiseTarget;
     private float _noiseTarget;
+    private float _timeAfterPlayerDeath;
     private Color _lastColorTarget;
     private Color _colorTarget;
     
@@ -89,6 +97,21 @@ public class GameController : MonoBehaviour
         _noiseTarget = 0.0f;
         
         ChangeShadersTarget();
+    }
+
+    private void Update()
+    {
+        if (_isGameEnded)
+        {
+            _timeAfterPlayerDeath += Time.deltaTime;
+            float t = _timeAfterPlayerDeath / _transitionNoiseTime;
+            _noiseMaterial.SetFloat("_noise_amount", Mathf.Lerp(_endNoise, _transitionNoise, t));
+            Debug.Log(t);
+            if (t >= 1.0)
+            {
+                ScenesController.instance.ToEnd();
+            }
+        }
     }
 
     public int GetCurrentWave()
@@ -166,7 +189,7 @@ public class GameController : MonoBehaviour
     private void StartNewWave()
     {
         SpawnTask task = new SpawnTask();
-        if (_currentWave == 7)
+        if (_currentWave == _bossWave)
         {
             task.isBossTask = true;
         }
@@ -201,6 +224,11 @@ public class GameController : MonoBehaviour
 
     private void BossDied()
     {
-        Debug.Log("Boss died");
+        foreach (var player in players)
+        {
+            player.isAbleToMove = false;
+        }
+
+        _isGameEnded = true;
     }
 }

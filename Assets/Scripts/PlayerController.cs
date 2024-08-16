@@ -11,6 +11,7 @@ public class PlayerController : LivingBeing
 {
     public Weapon activeWeapon;
     public event Action death;
+    public bool isAbleToMove = true;
     
     [SerializeField]
     protected WeaponWheelController weaponWheel;
@@ -90,10 +91,10 @@ public class PlayerController : LivingBeing
             weaponWheel.Deactivate();
         }
     }
-
+    
     void FixedUpdate()
     {
-        if (GameController.instance.IsGamePaused())
+        if (GameController.instance.IsGamePaused() || !isAbleToMove)
         {
             return;
         }
