@@ -1,5 +1,5 @@
 {
-    "name": "Player",
+    "name": "PlayerMain",
     "maps": [
         {
             "name": "Player",
@@ -27,6 +27,15 @@
                     "name": "Weapon wheel",
                     "type": "Button",
                     "id": "96c98797-fc52-4351-add2-526b14cafc7f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "85115309-9928-4ea3-a843-c75d59ebd985",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -240,6 +249,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Weapon wheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ce5d038-349c-4853-8282-98db8309631c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

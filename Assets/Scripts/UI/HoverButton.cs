@@ -16,6 +16,7 @@ public class HoverButton : MonoBehaviour
         _timer.callback = FlickCarette;
         _timer.isLooping = true;
         _timer.waitTime =0.5f;
+        _timer.isAffectedByGame = false;
     }
     
     public void OnPointerEnter(BaseEventData data)
@@ -27,7 +28,7 @@ public class HoverButton : MonoBehaviour
     
     public void OnPointerExit(BaseEventData data)
     {
-        text.text = text.text.Replace("C:\\> ", "");
+        UnHover();
         _isSelected = false;
         _timer.Stop();
         if (text.text[^1] == '_')
@@ -36,6 +37,11 @@ public class HoverButton : MonoBehaviour
         }
     }
 
+    public void UnHover()
+    {
+        text.text = text.text.Replace("C:\\> ", "");
+    }
+    
     private void FlickCarette()
     {
         if (text.text[^1] == '_')

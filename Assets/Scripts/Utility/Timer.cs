@@ -7,13 +7,14 @@ public class Timer: MonoBehaviour
     public Action callback;
     public float waitTime = 0;
     public bool isLooping = false;
+    public bool isAffectedByGame = true;
     
     private float timePassed = 0;
     private bool _isStopped = true;
     
     private void Update()
     {
-        if (_isStopped)
+        if (_isStopped || (isAffectedByGame && GameController.instance.IsGamePaused()))
         {
             return;
         }

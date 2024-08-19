@@ -59,7 +59,7 @@ public class Boss : LivingBeing
         player = GameController.instance.players[0];
         transform.eulerAngles = Vector3.zero;
     }
-
+    
     public void Activate()
     {
        // _knockbackWeapon.Fire();
@@ -105,11 +105,16 @@ public class Boss : LivingBeing
         if (distance2Player > 20 || !_isCircularReady)
         {
             currentState = _isLaserReady ? BossState.LaserAttack : BossState.None;
+            if (currentState == BossState.LaserAttack)
+                _animator.SetTrigger("laser_attack_start");
+            else
+                _animator.SetTrigger("regular_attack");
         }
         else
         {
             currentState = BossState.CircularAttack;
             _circleAttacksLeft = _circleAttacks;
+            _animator.SetTrigger("circle_attack_start");
         }
 
         _angleStart = transform.eulerAngles.y;
@@ -181,6 +186,7 @@ public class Boss : LivingBeing
                 currentState = BossState.Dead;
                 Destroy(gameObject, 5.0f);
                 GameController.instance.EnemyDeath(this, int.MaxValue); 
+                _animator.SetTrigger("death");
             }
         }
 }

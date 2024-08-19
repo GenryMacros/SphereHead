@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
@@ -64,7 +65,19 @@ public class GameController : MonoBehaviour
     private int _maxWaves;
     
     [SerializeField]
+    private GameObject _pauseMenu;
+    
+    [SerializeField]
     private ScoreManager _scoreManager;
+    
+    [SerializeField]
+    private BossPlatform _boss_platform;
+    
+    [SerializeField]
+    private PauseMenu _pause_menu;
+    
+    [SerializeField]
+    private TMP_Text _en_count_text;
     
     private int _enemiesCurrentWave;
     private int _currentWave = 1;
@@ -95,7 +108,8 @@ public class GameController : MonoBehaviour
 
         _colorTarget = _changingMaterialInitialColor;
         _noiseTarget = 0.0f;
-        
+        _boss_platform.gameObject.SetActive(false);
+        _pauseMenu.SetActive(false);
         ChangeShadersTarget();
     }
 
@@ -123,6 +137,23 @@ public class GameController : MonoBehaviour
     {
         return _maxWaves;
     }
+
+    public void Pause()
+    {
+        if (_isGamePaused || _isGameEnded)
+        {
+            UnPause();
+            return;
+        }
+        _isGamePaused = true;
+        _pause_menu.Show();
+    }
+    
+    public void UnPause()
+    {
+        _isGamePaused = false;
+        _pause_menu.Hide();
+    }
     
     public void EnemyDeath(LivingBeing deadEnemy, int scoreWorth)
     {
@@ -147,6 +178,7 @@ public class GameController : MonoBehaviour
         _changingMaterial.SetColor("_EmissionColor", 
             Color.Lerp(_lastColorTarget, _colorTarget, enemyT));
         
+        _en_count_text.text = $"Entities: {_enemiesCurrentWave}";
         _scoreManager.IncrementScore(scoreWorth, true);
         if (_enemiesCurrentWave <= 0)
         {
@@ -164,8 +196,15 @@ public class GameController : MonoBehaviour
         _currentWave += 1;
         
         ChangeShadersTarget();
-        
-        Invoke(nameof(StartNewWave), timeBetweenWaves);
+        if (_currentWave == _bossWave)
+        {
+            _boss_platform.gameObject.SetActive(true);
+            Invoke(nameof(StartNewWave), timeBetweenWaves * 2);
+        }
+        else
+        {
+            Invoke(nameof(StartNewWave), timeBetweenWaves);   
+        }
     }
 
     private void ChangeShadersTarget()
@@ -192,6 +231,7 @@ public class GameController : MonoBehaviour
         if (_currentWave == _bossWave)
         {
             task.isBossTask = true;
+            _boss_platform.gameObject.SetActive(false);
         }
         else
         {
@@ -205,6 +245,7 @@ public class GameController : MonoBehaviour
         
             _enemiesCurrentWave = task.rangedEnemies + task.regularEnemies;
             _totalEnemiesCurrentWave = _enemiesCurrentWave;
+            _en_count_text.text = $"Entities: {_totalEnemiesCurrentWave}";
         }
         _spawner.AssignTask(task);
         

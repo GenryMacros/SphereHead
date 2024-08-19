@@ -24,6 +24,11 @@ public class PopUp : MonoBehaviour
     
     void Update()
     {
+        if (GameController.instance.IsGamePaused())
+        {
+            return;
+        }
+        
         if (!_isActive)
         {
             _timeAfterUnactive += Time.deltaTime;

@@ -46,6 +46,11 @@ public class NotificationText : MonoBehaviour
     
     void Update()
     {
+        if (GameController.instance.IsGamePaused())
+        {
+            return;
+        }
+        
         if (_isFading)
         {
             Color newColor = _uiText.color;

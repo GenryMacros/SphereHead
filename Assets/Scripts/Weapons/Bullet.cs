@@ -43,6 +43,11 @@ public class Bullet : MonoBehaviour
     
     protected virtual void FixedUpdate()
     {
+        if (GameController.instance.IsGamePaused())
+        {
+            return;
+        }
+        
         Vector2 velocity = _speed * Time.deltaTime * _direction;
         transform.Translate(new Vector3(velocity.x, 0, velocity.y));
         _traveledDistance += velocity.magnitude;
