@@ -66,11 +66,14 @@ public class LivingBeing : MonoBehaviour
     public virtual void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir, OwnerEntity damageCauser)
     {
         hp -= (int)damage;
-        _knockbackDir = new Vector3(knockbackDir.x, 0, knockbackDir.y);
-        knockbackDistance += knockbackPower;
-        canMove = false;
-        _animator.enabled = false;
-        knockbackTimer.Stop();
+        if (knockbackPower != 0)
+        {
+            _knockbackDir = new Vector3(knockbackDir.x, 0, knockbackDir.y);
+            knockbackDistance += knockbackPower;
+            canMove = false;
+            _animator.enabled = false;
+            knockbackTimer.Stop();
+        }
     }
     
     void KnockbackRecover()

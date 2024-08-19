@@ -3119,8 +3119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097d452c2061eac4fb3cd8c2d50fa4c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeBeforeOpenStart: 2
-  _openTime: 10
+  _timeBeforeOpenStart: 20
+  _openTime: 30
   _openAngle: -90
 --- !u!1001 &225924251
 PrefabInstance:
@@ -3298,7 +3298,7 @@ MonoBehaviour:
   _door: {fileID: 188949647}
   _light: {fileID: 885632885}
   _blackScreenTime: 5
-  _noiseChangeTime: 10
+  _noiseChangeTime: 8
   _maxNoise: 0.5
   _blackImage: {fileID: 16217725}
   _videoPlayer: {fileID: 1308937098}
@@ -5165,7 +5165,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.6627451, g: 0.65882355, b: 0.9960785, a: 1}
+  m_Color: {r: 0.3113828, g: 0.30971876, b: 0.4528302, a: 1}
   m_Intensity: 4
   m_Range: 8.053993
   m_SpotAngle: 170.48506

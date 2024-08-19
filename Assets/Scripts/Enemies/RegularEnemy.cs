@@ -42,7 +42,7 @@ public class RegularEnemy : LivingBeing
         hp = (int)Mathf.Lerp(hp, maxHp, t);
         damage = (int)Mathf.Lerp(minDamage, maxDamage, t);
         
-        pathResetTimer.waitTime = 2;
+        pathResetTimer.waitTime = 1;
         pathResetTimer.isLooping = true;
         pathResetTimer.callback = ResetPath;
         _hitBox = GetComponent<BoxCollider>();

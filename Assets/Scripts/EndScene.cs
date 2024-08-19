@@ -51,25 +51,23 @@ public class EndScene : MonoBehaviour
                 float t = _timeSinceDoorOpen / _noiseChangeTime;
                 _noiseMaterial.SetFloat("_noise_amount", Mathf.Lerp(0.0f, _maxNoise, t));
             }
+            
+            if (_timeSinceDoorOpen >= _noiseChangeTime)
+            {
+                _isDoorOpen = false;
+                StartPrepareJumpscare();
+            }
         }
     }
     
     void DoorOpened()
     {
         _isDoorOpen = true;
-        if (_isLightOn)
-        {
-            StartPrepareJumpscare();
-        }
     }
 
     void LightActive()
     {
         _isLightOn = true;
-        if (_isDoorOpen)
-        {
-            StartPrepareJumpscare();
-        }
     }
 
     void StartPrepareJumpscare()

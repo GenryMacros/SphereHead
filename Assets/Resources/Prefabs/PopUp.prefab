@@ -186,7 +186,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _test: {fileID: 9137373851735969487}
   _image: {fileID: 3759547082420555360}
-  _existTime: 2
+  _existTime: 5
+  index: 0
 --- !u!1 &7005605160600306454
 GameObject:
   m_ObjectHideFlags: 0

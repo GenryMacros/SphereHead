@@ -49,7 +49,7 @@ public class Gun : Weapon
         if (!isReady)
         {
             isReady = true;
-            ammo = maxAmmo;
+            ReplenishAmmo(maxAmmo);
             return;
         }
         

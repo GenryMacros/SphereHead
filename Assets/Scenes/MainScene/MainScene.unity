@@ -32848,7 +32848,7 @@ MonoBehaviour:
   _bossWave: 7
   _startNoise: 0.001
   _endNoise: 0.02
-  _transitionNoise: 0.05
+  _transitionNoise: 0.2
   _transitionNoiseTime: 10
   _changingMaterialInitialColor: {r: 0.3019608, g: 0.29411766, b: 0.7490196, a: 1}
   _changingMaterialEndColor: {r: 0.30980393, g: 0, b: 0, a: 0}
