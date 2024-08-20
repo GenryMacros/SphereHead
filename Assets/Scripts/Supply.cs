@@ -19,6 +19,11 @@ public class Supply : MonoBehaviour
     private float gunSupplyRestorePercent = 0.5f;
     [SerializeField] 
     private float healthRestorePercent = 0.3f;
+    [SerializeField] 
+    private GameObject _body;
+    
+    public AudioSource rearmSource;
+    public AudioSource healSource;
     
     protected virtual void OnTriggerEnter(Collider other)
     {
@@ -55,6 +60,7 @@ public class Supply : MonoBehaviour
             {
                 player.Heal(player.GetMaxHP() * healthRestorePercent);
             }
+            healSource.Play();
         }
         else
         {
@@ -113,6 +119,7 @@ public class Supply : MonoBehaviour
                     {
                         player.Heal(player.GetMaxHP() * healthRestorePercent);
                     }
+                    rearmSource.Play();
                     break;
                 case SupplyType.GunsSupply:
                     foreach (Weapon weapon in arsenal)
@@ -123,13 +130,16 @@ public class Supply : MonoBehaviour
                             cast.ReplenishAmmo((int)(cast.GetMaxAmmo() * gunsSupplyRestorePercent));
                         }
                     }
+                    rearmSource.Play();
                     break;
                 case SupplyType.HealthSupply:
                     player.Heal(player.GetMaxHP() * healthRestorePercent);
+                    healSource.Play();
                     break;
             }
         }
-        Destroy(gameObject);
+        _body.SetActive(false);
+        Destroy(gameObject, 1);
     }
     
     private int GetRandomWeightedIndex(float[] weights)

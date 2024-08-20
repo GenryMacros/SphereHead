@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class MainMenuController : MonoBehaviour
 {
     public SettingsMenu settings;
     public List<HoverButton> otherButtons;
+    public HoverButton settingsButton;
     public TMP_Text title;
     
     
@@ -13,7 +15,7 @@ public class MainMenuController : MonoBehaviour
     {
         ToMain();
     }
-
+    
     public void ToSettings()
     {
         foreach (var button in otherButtons)
@@ -31,6 +33,7 @@ public class MainMenuController : MonoBehaviour
         {
             button.gameObject.SetActive(true);
         }
+        settingsButton.UnHover();
         settings.gameObject.SetActive(false);
         title.gameObject.SetActive(true);
     }

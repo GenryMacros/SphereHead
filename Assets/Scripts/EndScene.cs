@@ -23,6 +23,7 @@ public class EndScene : MonoBehaviour
     
     [SerializeField] 
     private Material _noiseMaterial;
+    public AudioSource noiseSource;
     
     private bool _isDoorOpen = false;
     private bool _isLightOn = false;
@@ -63,6 +64,7 @@ public class EndScene : MonoBehaviour
     void DoorOpened()
     {
         _isDoorOpen = true;
+        noiseSource.Play();
     }
 
     void LightActive()

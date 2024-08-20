@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -78,6 +77,7 @@ public class GameController : MonoBehaviour
     
     [SerializeField]
     private TMP_Text _en_count_text;
+    public AudioSource _transitionNoiseSound;
     
     private int _enemiesCurrentWave;
     private int _currentWave = 1;
@@ -271,5 +271,6 @@ public class GameController : MonoBehaviour
         }
 
         _isGameEnded = true;
+        _transitionNoiseSound.Play();
     }
 }

@@ -6,11 +6,12 @@ public class OpeningDoor : MonoBehaviour
 {
     [SerializeField] 
     private float _timeBeforeOpenStart;
-
     [SerializeField] 
     private float _openTime;
     [SerializeField] 
     private float _openAngle = -90;
+    
+    public AudioSource _source;
     
     private bool _isOpening = false;
     private float _timePassedSinceOpen;
@@ -41,5 +42,6 @@ public class OpeningDoor : MonoBehaviour
     private void StartOpening()
     {
         _isOpening = true;
+        _source.Play();
     }
 }

@@ -17,7 +17,7 @@ public class Gun : Weapon
     public float bulletSpeed;
     public float maxBulletTravelDistance;
     public event Action ammoChanged;
-    
+    public AudioSource _source;
     
     public override void Fire()
     {
@@ -39,6 +39,8 @@ public class Gun : Weapon
                 ammo = Math.Max(ammo - 1, 0);   
                 ammoChanged?.Invoke();
             }
+            if (_source)
+                _source.Play();
         }
         base.Fire();
     } 

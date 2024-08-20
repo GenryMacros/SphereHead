@@ -184,7 +184,7 @@ public class Boss : LivingBeing
             if (hp <= 0)
             {
                 currentState = BossState.Dead;
-                Destroy(gameObject, 5.0f);
+                Destroy(gameObject, 10.0f);
                 GameController.instance.EnemyDeath(this, int.MaxValue); 
                 _animator.SetTrigger("death");
             }

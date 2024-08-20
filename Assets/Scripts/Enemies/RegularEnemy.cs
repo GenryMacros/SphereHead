@@ -20,6 +20,7 @@ public class RegularEnemy : LivingBeing
     
     public int maxHp;
     public int scoreWorth;
+    public AudioSource deathSound;
     
     [SerializeField]
     protected NavMeshAgent _navigator;
@@ -165,6 +166,7 @@ public class RegularEnemy : LivingBeing
             _navigator.isStopped = true;
             currentState = EnemyState.Die;
             _animator.SetBool("IsDead",  true);
+            deathSound.Play();
             Destroy (gameObject, 3.0f); 
         }
         else
