@@ -7,7 +7,7 @@
             "type": 0,
             "upgradeParameters": [{
                 "rateOfFireChange": 0.0,
-                "damageChange": 2.0,
+                "damageChange": 1.0,
                 "knockbackPowerChange": 0.0,
                 "bulletSpeedChange": 0.0,
                 "maxBulletTravelDistanceChange": 0.0,
@@ -153,7 +153,7 @@
             "type": 0,
             "upgradeParameters": [{
                 "rateOfFireChange": 0.0,
-                "damageChange": 2.0,
+                "damageChange": 1.0,
                 "knockbackPowerChange": 0.0,
                 "bulletSpeedChange": 0.0,
                 "maxBulletTravelDistanceChange": 0.0,
