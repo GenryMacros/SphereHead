@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -61,12 +62,14 @@ public class EnemySpawner : MonoBehaviour
             int randomVal = Random.Range(0, 100);
             if (isRangedCanBeSpawned && (randomVal > 80 || !isRegularCanBeSpawned))
             {
-                Vector3 position = SelectedRandomPosition(true);
+                BoxCollider selectedZone = SelectRandomArea(true);
+                Vector3 position = SelectedRandomPosition(selectedZone);
                 RangedEnemy newRanged = Instantiate(rangedPrefab, transform);
                 newRanged.transform.position = position;
                 
                 Gun newGun = Instantiate(rangedEnemyGun, newRanged.gameObject.transform);
-
+                
+                newRanged.spawnedBox = selectedZone;
                 newRanged.SetGun(newGun);
                 
                 _currentTask.rangedEnemies -= 1;
@@ -74,10 +77,12 @@ public class EnemySpawner : MonoBehaviour
             }
             else if (isRegularCanBeSpawned)
             {
-                Vector3 position = SelectedRandomPosition(false);
+                BoxCollider selectedZone = SelectRandomArea(false);
+                Vector3 position = SelectedRandomPosition(selectedZone);
                 RegularEnemy newRegular = Instantiate(regularPrefab, transform);
                 MeleeWeapon newGun = Instantiate(meleeEnemyWeapon, newRegular.transform);
-                
+
+                newRegular.spawnedBox = selectedZone;
                 newRegular.SetGun(newGun);
                 newRegular.transform.position = position;
                 
@@ -91,7 +96,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private Vector3 SelectedRandomPosition(bool isForRanged)
+    private BoxCollider SelectRandomArea(bool isForRanged)
     {
         List<BoxCollider> regionsPool;
         int randomVal = Random.Range(0, 100);
@@ -101,6 +106,11 @@ public class EnemySpawner : MonoBehaviour
 
         float[] weights = Enumerable.Repeat(1.0f, regionsPool.Count).ToArray();
         BoxCollider selectedZone = regionsPool[GetRandomWeightedIndex(weights)];
+        return selectedZone;
+    }
+    
+    private Vector3 SelectedRandomPosition(BoxCollider selectedZone)
+    {
         
         Vector3 worldSpaceCenter = selectedZone.transform.TransformPoint(selectedZone.center);
         Vector2 zonesXBorders = new Vector2(worldSpaceCenter.x - selectedZone.size.x / 2,

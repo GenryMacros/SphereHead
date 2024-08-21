@@ -27,7 +27,7 @@ public class Supply : MonoBehaviour
     
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag("Player"))
+        if (!other.gameObject.CompareTag("Player") || !_body.activeSelf)
         {
             return;
         }

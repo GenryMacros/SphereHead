@@ -7033,7 +7033,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 39.8}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &508266851
 MonoBehaviour:
@@ -12672,7 +12672,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 71.76, y: 25.84, z: -8.39}
-  m_LocalScale: {x: 1, y: 13.243, z: 1}
+  m_LocalScale: {x: 1, y: 13.243, z: 1.4316821}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1104523589}
@@ -18969,7 +18969,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 79.5}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &885248430
 MonoBehaviour:
@@ -19572,7 +19572,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 3.5999756}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &940083829
 MonoBehaviour:
@@ -27808,7 +27808,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 118.8}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1555215945
 MonoBehaviour:
@@ -34140,7 +34140,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -66, y: 24.94, z: -10.77}
-  m_LocalScale: {x: 1, y: 13.243, z: 1}
+  m_LocalScale: {x: 1, y: 13.243, z: 1.2298}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1104523589}
@@ -34653,7 +34653,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -13.241, y: -1.5608, z: 7.3298}
-  m_LocalScale: {x: 5.7839, y: 13.243, z: 1.3741}
+  m_LocalScale: {x: 7.162203, y: 13.243, z: 1.3741}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1104523589}

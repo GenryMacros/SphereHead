@@ -24,6 +24,7 @@ public class EndScene : MonoBehaviour
     [SerializeField] 
     private Material _noiseMaterial;
     public AudioSource noiseSource;
+    public VideoPlayer backGround;
     
     private bool _isDoorOpen = false;
     private bool _isLightOn = false;
@@ -34,6 +35,7 @@ public class EndScene : MonoBehaviour
         _door.activateCallback += DoorOpened;
         _light.activateCallback += LightActive;
         _noiseMaterial.SetFloat("_noise_amount", 0.0f);
+        backGround.url = System.IO.Path.Combine (Application.streamingAssetsPath,"jumpscare_final.mp4"); 
     }
     
     void Update()

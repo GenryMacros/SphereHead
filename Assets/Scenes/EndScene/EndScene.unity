@@ -3408,6 +3408,7 @@ MonoBehaviour:
   _videoPlayer: {fileID: 1308937098}
   _noiseMaterial: {fileID: 2100000, guid: a385fce98acbc2c45bce02caf58e769f, type: 2}
   noiseSource: {fileID: 379143741}
+  backGround: {fileID: 1308937098}
 --- !u!4 &379143740
 Transform:
   m_ObjectHideFlags: 0

@@ -2894,6 +2894,7 @@ MonoBehaviour:
   - {fileID: 1007256686}
   settingsButton: {fileID: 944371472}
   title: {fileID: 702314637}
+  backGround: {fileID: 746527574}
 --- !u!4 &1047832366
 Transform:
   m_ObjectHideFlags: 0

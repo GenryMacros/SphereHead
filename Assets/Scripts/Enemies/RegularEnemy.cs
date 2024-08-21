@@ -18,6 +18,7 @@ public class RegularEnemy : LivingBeing
     public float minKnockbackPower;
     public float maxKnockbackPower;
     
+    public BoxCollider spawnedBox;
     public int maxHp;
     public int scoreWorth;
     public AudioSource deathSound;
@@ -36,6 +37,7 @@ public class RegularEnemy : LivingBeing
     
     private BoxCollider _hitBox;
     private float _timeWithoutMoving;
+    private Timer _stuckTimer;
     
     protected override void Start()
     {
@@ -49,6 +51,12 @@ public class RegularEnemy : LivingBeing
         pathResetTimer.callback = ResetPath;
         _hitBox = GetComponent<BoxCollider>();
         ResetPath();
+
+        _stuckTimer = spawnPoint.AddComponent<Timer>();
+        _stuckTimer.isLooping = false;
+        _stuckTimer.waitTime = 15.0f;
+        _stuckTimer.callback = TpIfStuck;
+        _stuckTimer.Begin();
     }
     
     public virtual void SetGun(Weapon gun)
@@ -82,22 +90,7 @@ public class RegularEnemy : LivingBeing
             switch (currentState)
             {
                 case EnemyState.Chase:
-                    Vector3 preMovePos = gameObject.transform.position;
                     Chase();
-                    Vector3 postPos = gameObject.transform.position;
-                    if (Mathf.Abs(preMovePos.magnitude - postPos.magnitude) < 0.01)
-                    {
-                        _timeWithoutMoving += Time.deltaTime;
-                        if (_timeWithoutMoving > 4.0)
-                        {
-                            gameObject.transform.position = new Vector3(0, gameObject.transform.position.y, 0);
-                            _timeWithoutMoving = 0;
-                        }
-                    }
-                    else
-                    {
-                        _timeWithoutMoving = 0;
-                    }
                     break;
                 case EnemyState.Attack:
                     Attack();
@@ -210,6 +203,24 @@ public class RegularEnemy : LivingBeing
         return bestChoice.transform;
     }
 
+    private void TpIfStuck()
+    {
+        if (spawnedBox)
+        {
+            Vector3 selfPos = gameObject.transform.position;
+            Vector3 rectX = spawnedBox.transform.position;
+            float rectWidth = spawnedBox.size.x;
+            float rectHeight = spawnedBox.size.y;
+
+            if ((selfPos.x < rectX.x + rectWidth && selfPos.x > rectX.x - rectWidth) &&
+                (selfPos.z < rectX.z + rectHeight && selfPos.z > rectX.z - rectHeight))
+            {
+                gameObject.transform.position = new Vector3(0, gameObject.transform.position.y, 0);
+                ResetPath();
+            }
+        }
+    }
+    
     private void ResetPath()
     {
         _navigator.isStopped = false;
