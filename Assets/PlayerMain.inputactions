@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Weapon quick change",
+                    "type": "Button",
+                    "id": "3ee07d40-9ab1-45e4-84fc-a24bebfba6c1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -233,7 +242,7 @@
                 {
                     "name": "",
                     "id": "4e5a341b-e799-42a4-9c25-f5995ff3c8b6",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -260,6 +269,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "49aaad0b-76c8-463c-aaa7-032b3a476370",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Weapon quick change",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

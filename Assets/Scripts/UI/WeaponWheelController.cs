@@ -13,7 +13,8 @@ public class WeaponWheelController : MonoBehaviour
     
     [SerializeField]
     protected TMP_Text _modulesInstalledText;
-    
+
+    private int _lastSelected = 0;
     private int _previousSelection;
     private WeaponWheelItem _menuItemSc;
     private WeaponWheelItem _previousMenuItemSc;
@@ -46,6 +47,7 @@ public class WeaponWheelController : MonoBehaviour
         {
             pieParts[_previousSelection].Deselect();
             _previousSelection = selection;
+            _lastSelected = selection;
             pieParts[selection].Select();
             string selectedWeaponName = pieParts[selection].representedWeapon.IsReady() ? pieParts[selection].representedWeapon.GetWeaponName() : "????";
 
@@ -64,6 +66,23 @@ public class WeaponWheelController : MonoBehaviour
         return pieParts[_previousSelection].representedWeapon;
     }
 
+    public Weapon GetNextWeapon()
+    {
+        if (_lastSelected + 1 >= pieParts.Length)
+        {
+            _lastSelected = 0;
+            return pieParts[_lastSelected].representedWeapon;
+        }
+        Weapon next = pieParts[_lastSelected + 1].representedWeapon;
+        if (next.IsReady())
+        {
+            _lastSelected += 1;
+            return next;
+        }
+        _lastSelected = 0;
+        return pieParts[_lastSelected].representedWeapon; 
+    }
+    
     public void Activate()
     {
         gameObject.SetActive(true);

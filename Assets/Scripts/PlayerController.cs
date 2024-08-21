@@ -91,6 +91,19 @@ public class PlayerController : LivingBeing
             weaponWheel.Deactivate();
         }
     }
+
+    public void OnQuickWeaponChange(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _isChangingWeapon = true;
+            
+            Weapon nextWeapon = weaponWheel.GetNextWeapon();
+            _newWeapon = nextWeapon;
+            _isReadyToShoot = false;
+            _animator.SetTrigger("Rearm");
+        }
+    }
     
     void FixedUpdate()
     {

@@ -35,6 +35,7 @@ public class RegularEnemy : LivingBeing
     protected Weapon _gun;
     
     private BoxCollider _hitBox;
+    private float _timeWithoutMoving;
     
     protected override void Start()
     {
@@ -81,7 +82,22 @@ public class RegularEnemy : LivingBeing
             switch (currentState)
             {
                 case EnemyState.Chase:
+                    Vector3 preMovePos = gameObject.transform.position;
                     Chase();
+                    Vector3 postPos = gameObject.transform.position;
+                    if (Mathf.Abs(preMovePos.magnitude - postPos.magnitude) < 0.01)
+                    {
+                        _timeWithoutMoving += Time.deltaTime;
+                        if (_timeWithoutMoving > 4.0)
+                        {
+                            gameObject.transform.position = new Vector3(0, gameObject.transform.position.y, 0);
+                            _timeWithoutMoving = 0;
+                        }
+                    }
+                    else
+                    {
+                        _timeWithoutMoving = 0;
+                    }
                     break;
                 case EnemyState.Attack:
                     Attack();
@@ -102,7 +118,7 @@ public class RegularEnemy : LivingBeing
         SetRotation(_navigator.transform.eulerAngles.y);
         _navigator.transform.localPosition = Vector3.zero;
         transform.position += _navigator.speed * Time.deltaTime * transform.forward;
-        
+
         Transform closestPlayer = FindClosestPlayer();
         float distance2Player = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
                                                  new Vector2(closestPlayer.position.x, closestPlayer.position.z));
@@ -118,6 +134,7 @@ public class RegularEnemy : LivingBeing
         
         if (distance2Player <= attackDistance)
         {
+            _timeWithoutMoving = 0;
             currentState = EnemyState.Attack;
             _navigator.isStopped = true;
             _navigator.velocity = Vector3.zero;
@@ -136,6 +153,7 @@ public class RegularEnemy : LivingBeing
         if (distance2Player > attackDistance)
         {
             currentState = EnemyState.Chase;
+            _timeWithoutMoving = 0;
             pathResetTimer.Begin();
             _animator.SetBool("IsShooting",  false);
         }
