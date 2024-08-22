@@ -71,6 +71,10 @@ public class WeaponWheelController : MonoBehaviour
         if (_lastSelected + 1 >= pieParts.Length)
         {
             _lastSelected = 0;
+            if (!pieParts[_lastSelected].representedWeapon.IsReady())
+            {
+                _lastSelected = 2;
+            }
             return pieParts[_lastSelected].representedWeapon;
         }
         Weapon next = pieParts[_lastSelected + 1].representedWeapon;
@@ -80,6 +84,10 @@ public class WeaponWheelController : MonoBehaviour
             return next;
         }
         _lastSelected = 0;
+        if (!pieParts[_lastSelected].representedWeapon.IsReady())
+        {
+            _lastSelected = 2;
+        }
         return pieParts[_lastSelected].representedWeapon; 
     }
     
