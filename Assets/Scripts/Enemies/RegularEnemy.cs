@@ -54,7 +54,7 @@ public class RegularEnemy : LivingBeing
 
         _stuckTimer = spawnPoint.AddComponent<Timer>();
         _stuckTimer.isLooping = false;
-        _stuckTimer.waitTime = 15.0f;
+        _stuckTimer.waitTime = 20.0f;
         _stuckTimer.callback = TpIfStuck;
         _stuckTimer.Begin();
     }
@@ -209,8 +209,8 @@ public class RegularEnemy : LivingBeing
         {
             Vector3 selfPos = gameObject.transform.position;
             Vector3 rectX = spawnedBox.transform.position;
-            float rectWidth = spawnedBox.size.x;
-            float rectHeight = spawnedBox.size.y;
+            float rectWidth = spawnedBox.size.x + 15;
+            float rectHeight = spawnedBox.size.z + 15;
 
             if ((selfPos.x < rectX.x + rectWidth && selfPos.x > rectX.x - rectWidth) &&
                 (selfPos.z < rectX.z + rectHeight && selfPos.z > rectX.z - rectHeight))

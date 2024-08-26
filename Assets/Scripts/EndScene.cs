@@ -29,6 +29,7 @@ public class EndScene : MonoBehaviour
     private bool _isDoorOpen = false;
     private bool _isLightOn = false;
     private float _timeSinceDoorOpen;
+    private bool _isAbleToQuit = false;
     
     void Start()
     {
@@ -40,7 +41,7 @@ public class EndScene : MonoBehaviour
     
     void Update()
     {
-        if(_videoPlayer.frame + 1 >= (long)_videoPlayer.frameCount)
+        if(_videoPlayer.frame + 1 >= (long)_videoPlayer.frameCount && _isAbleToQuit)
         {
             Application.Quit();
             Debug.Log("Quit");
@@ -83,6 +84,12 @@ public class EndScene : MonoBehaviour
     void Jumpscare()
     {
         _videoPlayer.Play();
+        Invoke(nameof(MakeAbleToQuit), 1);
         //_blackImage.gameObject.SetActive(false);
+    }
+
+    void MakeAbleToQuit()
+    {
+        _isAbleToQuit = true;
     }
 }
