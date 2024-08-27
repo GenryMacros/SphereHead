@@ -71,7 +71,7 @@ public class RegularEnemy : LivingBeing
         _gun.damage = damage;
         _gun.knockbackPower = Mathf.Lerp(minKnockbackPower, maxKnockbackPower, t);
     }
-
+    
     public BoxCollider GetMeleeHitBox()
     {
         return _hitBox;
@@ -108,10 +108,6 @@ public class RegularEnemy : LivingBeing
     
     protected virtual void Chase()
     {
-        SetRotation(_navigator.transform.eulerAngles.y);
-        _navigator.transform.localPosition = Vector3.zero;
-        transform.position += _navigator.speed * Time.deltaTime * transform.forward;
-
         Transform closestPlayer = FindClosestPlayer();
         float distance2Player = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
                                                  new Vector2(closestPlayer.position.x, closestPlayer.position.z));
@@ -138,7 +134,7 @@ public class RegularEnemy : LivingBeing
             pathResetTimer.Begin();
         }
     }
-
+    
     protected virtual void Attack()
     {
         Transform closestPlayer = FindClosestPlayer();

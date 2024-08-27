@@ -13,14 +13,19 @@ public class PlayerControllerEndScene : MonoBehaviour
     
     void Start ()
     {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.visible = false;
     }
     
     public void OnRotate(InputAction.CallbackContext context)
     {
         Vector2 input = context.ReadValue<Vector2>();
+        Debug.Log(input);
+        //_cam.UpdateRotation(new Vector2(input.x, input.y) * _camRotateSpeed);
+    }
+
+    public void RotateCamPhone(Vector2 input)
+    {
         _cam.UpdateRotation(new Vector2(input.x, input.y) * _camRotateSpeed);
     }
-    
 }

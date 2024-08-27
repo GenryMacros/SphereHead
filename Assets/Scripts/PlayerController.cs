@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
@@ -12,6 +13,7 @@ public class PlayerController : LivingBeing
     public Weapon activeWeapon;
     public event Action death;
     public bool isAbleToMove = true;
+    public bool isShooting = false;
     
     [SerializeField]
     protected WeaponWheelController weaponWheel;
@@ -24,7 +26,6 @@ public class PlayerController : LivingBeing
     private bool _isChangingWeapon = false;
     private Vector2 _lastInput;
     private bool _isMoving = false;
-    private bool _isShooting = false;
     private bool _isReadyToShoot = true;
     
     protected override void Start()
@@ -52,13 +53,18 @@ public class PlayerController : LivingBeing
     
     public void OnFire(InputAction.CallbackContext context)
     {
-        _isShooting =  context.performed;
+        isShooting =  context.performed;
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 input = context.ReadValue<Vector2>();
-        _lastInput = input;
+        Move(input);
+    }
+
+    public void Move(Vector2 input)
+    {
+        _lastInput = FixInput(input);
         if (input == Vector2.zero)
         {
             _isMoving = false;
@@ -96,13 +102,18 @@ public class PlayerController : LivingBeing
     {
         if (context.performed)
         {
-            _isChangingWeapon = true;
-            
-            Weapon nextWeapon = weaponWheel.GetNextWeapon();
-            _newWeapon = nextWeapon;
-            _isReadyToShoot = false;
-            _animator.SetTrigger("Rearm");
+            QuickWeaponChange();
         }
+    }
+
+    public void QuickWeaponChange()
+    {
+        _isChangingWeapon = true;
+            
+        Weapon nextWeapon = weaponWheel.GetNextWeapon();
+        _newWeapon = nextWeapon;
+        _isReadyToShoot = false;
+        _animator.SetTrigger("Rearm");
     }
     
     void FixedUpdate()
@@ -122,16 +133,15 @@ public class PlayerController : LivingBeing
                 Vector2 velocity = speed * Time.deltaTime * _lastInput;
                 transform.Translate(new Vector3(velocity.x, 0, velocity.y), Space.World);
                 transform.forward = new Vector3(_lastInput.x, 0, _lastInput.y);
-                
                 bar.gameObject.transform.rotation = preTransformBarRotation;
             }
 
-            if (_isReadyToShoot && _isShooting)
+            if (_isReadyToShoot && isShooting)
             {
                 activeWeapon.Fire();
             }
         }
-
+        
         if (_newWeapon && _isChangingWeapon && _animator.GetCurrentAnimatorStateInfo(1).IsName("Rearm") && _animator.IsInTransition(1))
         {
             activeWeapon.gameObject.SetActive(false);
@@ -142,6 +152,29 @@ public class PlayerController : LivingBeing
         {
             _isReadyToShoot = true;
         }
+    }
+    
+    private Vector2 FixInput(Vector2 input)
+    {
+        Vector2 fixedInput = new Vector2();
+        if (input.x >= 0.5f)
+        {
+            fixedInput.x = Math.Abs(1.0f - input.x) < Math.Abs(0.7f - input.x) ? 1.0f : 0.7f;
+        }
+        else if (input.x <= -0.5f)
+        {
+            fixedInput.x = Math.Abs(-1.0f - input.x) < Math.Abs(-0.7f - input.x) ? -1.0f : -0.7f;
+        }
+        
+        if (input.y >= 0.5f)
+        {
+            fixedInput.y = Math.Abs(1.0f - input.y) < Math.Abs(0.7f - input.y) ? 1.0f : 0.7f;
+        }
+        else if (input.y <= -0.5f)
+        {
+            fixedInput.y = Math.Abs(-1.0f - input.y) < Math.Abs(-0.7f - input.y) ? -1.0f : -0.7f;
+        }
+        return fixedInput;
     }
     
     public override void TakeDamage(float damage, float knockbackPower, Vector2 knockbackDir, OwnerEntity damageCauser)
