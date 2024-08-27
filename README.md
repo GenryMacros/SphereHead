@@ -2,4 +2,4 @@
 
 ![alt text](https://github.com/GenryMacros/SphereHead/blob/main/GitResources/intro.gif "Small pc gameplay record")
 
-You can play it in browser or download android apk, completely free [right here](https://lightfrosted.itch.io/spherehead)
+You can download android or windows version, completely free [right here](https://lightfrosted.itch.io/spherehead)
